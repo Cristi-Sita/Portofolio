@@ -1,0 +1,33 @@
+{
+  "name": "flightsearch",
+  "version": "0.0.0",
+  "description": "API for Flight search",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "airline",
+    "tickets",
+    "airline",
+    "tickets",
+    "discount",
+    "tickets",
+    "low",
+    "cost",
+    "promotions",
+    "reservations",
+    "flights",
+    "offers",
+    "airline",
+    "tickets",
+    "travel"
+  ],
+  "author": "Cristi",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
