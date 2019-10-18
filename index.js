@@ -1,6 +1,8 @@
 const express = require("express");
 const axios = require("axios");
 const mysql = require('mysql');
+const cors = require('cors');
+const querystring = require('querystring');
 
 const app = express()
 
@@ -20,7 +22,7 @@ const connection = mysql.createConnection({
 connection.connect();
 
 app.use(express.json());
-
+app.use(cors());
 
 let flightsData,
     cityObject,
@@ -66,17 +68,25 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
         })
 };
 
-async function detailedFlightsData(originPlace, city, inboundDate, outboundDate) {
+const flights = async function detailedFlightsData(originPlace, city, inboundDate, outboundDate, insertID) {
     const flightsDataResponse = await flightsResponse(zone, currency, lang, city, inboundDate, cabinClass, children, infants, groupPricing,
         originPlace, outboundDate, adults);
     let responseFlightsData = await flightsDataResponse;
-    let originName = await responseFlightsData.Query.OriginPlace;
-    let destinationName = responseFlightsData.Query.DestinationPlace;
-    let wheatherOrigin = await cityNameW(responseFlightsData.Places, originName);
-    let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
-    console.log(await predictedWheather(wheatherOrigin));
-    console.log(await predictedWheather(wheatherDestination), responseFlightsData.Query);
-    // console.log(responseFlightsData.Places);
+    // let originName = await responseFlightsData.Query.OriginPlace;
+    // let destinationName = responseFlightsData.Query.DestinationPlace;
+    // let wheatherOrigin = await cityNameW(responseFlightsData.Places, originName);
+    // let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
+    // console.log(await predictedWheather(wheatherOrigin));
+    // console.log(await predictedWheather(wheatherDestination), responseFlightsData.Query);
+    // console.log(JSON.stringify({ responseFlightsData }));
+    let insertData = JSON.stringify({ responseFlightsData });
+    connection.query('UPDATE flightsearch SET flightsData = ? WHERE id = ?', [insertData, insertID], function (err, result) {
+        if (err) throw err;
+        console.log(`Changed ${result.changedRows} row(s)`);
+    }
+    );
+    console.log(responseFlightsData.Query);
+    return responseFlightsData;
 };
 
 function cityNameW(locationArray, code) {
@@ -104,7 +114,7 @@ function cityNameW(locationArray, code) {
 };
 
 app.get('/items', function (req, res) {
-    connection.query('SELECT * FROM flightsearchdata', function (
+    connection.query('SELECT * FROM flightsearch', function (
         error,
         results,
         fields
@@ -115,33 +125,44 @@ app.get('/items', function (req, res) {
 });
 
 app.post("/items", function (req, res) {
-    connection.query("INSERT INTO flightsearchdata SET ?", req.body, function (error, results) {
-        if (error) throw error;
-        res.json("results.insertID");
-        let items = req.body;
-
-        let originCod = (items) => {
-            if (items.origin == "Bucuresti") { return originPlace = "OTP-sky" };
-            if (items.origin == "Cluj Napoca") { return originPlace = "CLJ-sky" };
-            if (items.origin == "Constanta") { return originPlace = "CND-sky" };
-            if (items.origin == "Timisoara") { return originPlace = "TSR-sky" };
-            return originPlace;
+    let items = req.body,
+        insertItems = {
+            origin: items.origin,
+            destination: items.destination,
+            outboundDate: items.outboundDate,
+            inboundDate: items.inboundDate
         };
-        let destination = (items) => {
-            return items.destination == 'Moscova' ? 'Moscow' : items.destination;
-        };
+    connection.query("INSERT INTO flightsearch SET ?",
+        insertItems, function (error, results) {
+            if (error) throw error;
+            let insertId = results.insertId;
+            console.log(results.insertId);
+            res.json("results.insertID");
+            let originCod = (items) => {
+                if (items.origin == "Bucuresti") { return originPlace = "OTP-sky" };
+                if (items.origin == "Cluj Napoca") { return originPlace = "CLJ-sky" };
+                if (items.origin == "Constanta") { return originPlace = "CND-sky" };
+                if (items.origin == "Timisoara") { return originPlace = "TSR-sky" };
+                return originPlace;
+            };
+            let destination = (items) => {
+                return items.destination == 'Moscova' ? 'Moscow' : items.destination;
+            };
 
-        let outboundDate = items.outboundDate;
-        let inboundDate = items.inboundDate;
+            let outboundDate = items.outboundDate;
+            let inboundDate = items.inboundDate;
 
-        console.log(items);
-        detailedFlightsData(originCod(items), destination(items), inboundDate, outboundDate);
-    });
+            console.log(items);
+            flights(originCod(items), destination(items), inboundDate, outboundDate, insertId);
+
+        });
 });
 
 app.put("/items/:id", function (req, res) {
-    connection.query("UPDATE flightsearchdata SET ? WHERE id=?", [
-        req.body,
+    let updateItem = req.body;
+    connection.query("UPDATE flightsearch SET ? WHERE id=?", [
+        // req.body,
+        updateItem,
         req.params.id
     ],
         function (error, res) {
@@ -152,7 +173,7 @@ app.put("/items/:id", function (req, res) {
 });
 
 app.delete("/items/:id", function (req, res) {
-    connection.query("DELETE FROM flightsearchdata WHERE id=?", req.params.id,
+    connection.query("DELETE FROM flightsearch WHERE id=?", req.params.id,
         function (error, res) {
             if (error) throw error;
             res.json()
