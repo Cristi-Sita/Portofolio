@@ -1,8 +1,6 @@
 const express = require("express");
-const axios = require("axios");
 const mysql = require('mysql');
 const cors = require('cors');
-const querystring = require('querystring');
 
 const app = express()
 
@@ -49,7 +47,7 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
             return destinationCode;
         })
         .then(responseKey => skyKeySession(inboundDate, cabinClass, children, infants, groupPricing, zone, currency, lang,
-            originPlace, destinationCode, outboundDate, adults)
+                originPlace, destinationCode, outboundDate, adults)
             .then(skyKey => {
                 keySession = skyKey;
                 // console.log(keySession);
@@ -79,12 +77,13 @@ const flights = async function detailedFlightsData(originPlace, city, inboundDat
     // console.log(await predictedWheather(wheatherOrigin));
     // console.log(await predictedWheather(wheatherDestination), responseFlightsData.Query);
     // console.log(JSON.stringify({ responseFlightsData }));
-    let insertData = JSON.stringify({ responseFlightsData });
+    let insertData = JSON.stringify({
+        responseFlightsData
+    });
     connection.query('UPDATE flightsearch SET flightsData = ? WHERE id = ?', [insertData, insertID], function (err, result) {
         if (err) throw err;
         console.log(`Changed ${result.changedRows} row(s)`);
-    }
-    );
+    });
     console.log(responseFlightsData.Query);
     return responseFlightsData;
 };
@@ -133,16 +132,25 @@ app.post("/items", function (req, res) {
             inboundDate: items.inboundDate
         };
     connection.query("INSERT INTO flightsearch SET ?",
-        insertItems, function (error, results) {
+        insertItems,
+        function (error, results) {
             if (error) throw error;
             let insertId = results.insertId;
             console.log(results.insertId);
             res.json("results.insertID");
             let originCod = (items) => {
-                if (items.origin == "Bucuresti") { return originPlace = "OTP-sky" };
-                if (items.origin == "Cluj Napoca") { return originPlace = "CLJ-sky" };
-                if (items.origin == "Constanta") { return originPlace = "CND-sky" };
-                if (items.origin == "Timisoara") { return originPlace = "TSR-sky" };
+                if (items.origin == "Bucuresti") {
+                    return originPlace = "OTP-sky"
+                };
+                if (items.origin == "Cluj Napoca") {
+                    return originPlace = "CLJ-sky"
+                };
+                if (items.origin == "Constanta") {
+                    return originPlace = "CND-sky"
+                };
+                if (items.origin == "Timisoara") {
+                    return originPlace = "TSR-sky"
+                };
                 return originPlace;
             };
             let destination = (items) => {
@@ -161,10 +169,10 @@ app.post("/items", function (req, res) {
 app.put("/items/:id", function (req, res) {
     let updateItem = req.body;
     connection.query("UPDATE flightsearch SET ? WHERE id=?", [
-        // req.body,
-        updateItem,
-        req.params.id
-    ],
+            // req.body,
+            updateItem,
+            req.params.id
+        ],
         function (error, res) {
             if (error) throw error;
             res.json()
