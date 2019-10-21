@@ -67,23 +67,27 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
 };
 
 const flights = async function detailedFlightsData(originPlace, city, inboundDate, outboundDate, insertID) {
-    const flightsDataResponse = await flightsResponse(zone, currency, lang, city, inboundDate, cabinClass, children, infants, groupPricing,
-        originPlace, outboundDate, adults);
+
+    const flightsDataResponse = await flightsResponse(zone, currency, lang, city, inboundDate, cabinClass, children,
+        infants, groupPricing, originPlace, outboundDate, adults);
+
     let responseFlightsData = await flightsDataResponse;
-    // let originName = await responseFlightsData.Query.OriginPlace;
-    // let destinationName = responseFlightsData.Query.DestinationPlace;
-    // let wheatherOrigin = await cityNameW(responseFlightsData.Places, originName);
-    // let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
-    // console.log(await predictedWheather(wheatherOrigin));
-    // console.log(await predictedWheather(wheatherDestination), responseFlightsData.Query);
+    let originName = await responseFlightsData.Query.OriginPlace;
+    let destinationName = responseFlightsData.Query.DestinationPlace;
+    let wheatherOrigin = await cityNameW(responseFlightsData.Places, originName);
+    let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
+    console.log(await predictedWheather(wheatherOrigin));
+    console.log(await predictedWheather(wheatherDestination), responseFlightsData.Query);
+
     // console.log(JSON.stringify({ responseFlightsData }));
     let insertData = JSON.stringify({
         responseFlightsData
     });
-    connection.query('UPDATE flightsearch SET flightsData = ? WHERE id = ?', [insertData, insertID], function (err, result) {
-        if (err) throw err;
-        console.log(`Changed ${result.changedRows} row(s)`);
-    });
+    connection.query('UPDATE flightsearch SET flightsData = ? WHERE id = ?', [insertData, insertID],
+        function (err, result) {
+            if (err) throw err;
+            console.log(`Changed ${result.changedRows} row(s)`);
+        });
     console.log(responseFlightsData.Query);
     return responseFlightsData;
 };
