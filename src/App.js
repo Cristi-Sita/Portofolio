@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import axios from "axios";
 import './App.css';
+
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       items: []
+//     };
+//   }
+
+//   componentDidMount() {
+//     this.loadItems();
+//   }
 
 function App() {
   return (
-    <div className="App">
+    <div className="mainContainer">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className="pageTitle">Flights search engine</h1>
       </header>
+      <main className="mainContent">
+        <div className="sideContainers historyOfSearch">
+          <div className="sideImage airplaneImage"></div>
+          <h3>The latest flight searches: </h3>
+        </div>
+        <div className="middleContainer formContainer">
+        </div>
+        <div className="sideContainers forecastWheather">
+          <div className="sideImage wheatherImage"></div>
+        </div>
+      </main>
     </div>
   );
 }
