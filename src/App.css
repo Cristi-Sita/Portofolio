@@ -42,7 +42,7 @@ width: 100vw;
 }
 
 .sideContainers {
-  background-color: rgba(96, 125, 252, 0.767);
+  background-color: rgb(134, 169, 201);
   border-radius: 5px;
   height: 100vh;
   flex-grow: 1;
@@ -51,6 +51,7 @@ width: 100vw;
 
 .middleContainer {
   flex-grow: 3;
+  max-width: 60%;
 }
 
 .historyOfSearch {
@@ -76,4 +77,8 @@ background-image: url("./commercialAirplane.jpg");
 
 .wheatherImage {
   background-image: url("./Wheather.jpg");
+}
+
+.containerForm {
+  margin: 8px;
 }
