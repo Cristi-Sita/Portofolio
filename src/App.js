@@ -35,30 +35,32 @@ function App() {
                 <option className="city" value="Constanta">Constanta</option>
                 <option className="city" value="Timisoara">Timisoara</option>
               </select>
-              <label className="destinationCity">Flying to:</label>
+              <label className="destinationCityLabel labelArea">Flying to:</label>
               <input
                 className="destinationCity"
-                type="textarea"
+                type="text"
                 required />
-              <label className="departinDate">Departing: </label>
+              <label className="dateTravel departingDateLabel labelArea">Departing: </label>
               <input
                 type="date"
-                name="dateTravel departingDate"
+                name="departingDate"
                 required
                 id={'() => datePickerId.max = new Date().toISOString().split("T")[0]'} />
-              <label className="dateTravel returningDate">Returning: </label>
+              <label className="dateTravel returningDateLabel labelArea">Returning: </label>
               <input
                 type="date"
                 name="returningDate"
                 max=""
                 required />
-              <label className="travelers">Travelers:</label>
+              <label className="travelersLabel labelArea">Travelers:</label>
               <input
                 type="number"
                 className="peopleTravelers"
                 name="adultsTravelers"
+                value={"1"}
                 min={'1'}
                 max={'6'}
+                step={'1'}
                 required />Adults
               <input
                 type="number"
@@ -70,14 +72,14 @@ function App() {
                 className="peopleTravelers"
                 name="infantsTravelers"
                 max={'6'} />Infants Age under 2
-              <label className="cabin">Cabin Class:</label>
+              <label className="cabinClassLabel labelArea">Cabin Class:</label>
               <select className="cabinClases">
                 <option className="cabinClass" value="economy">Economy</option>
                 <option className="cabinClass" value="premiumeconomy">Premium Economy</option>
                 <option className="cabinClass" value="business">Business</option>
                 <option className="cabinClass" value="first">First</option>
               </select>
-
+              <button>Submit</button>
             </form>
           </div>
         </div>
