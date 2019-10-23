@@ -30,7 +30,7 @@ const connectDataBase = () => {
     app.post("/items", function (req, res) {
         connection.query("INSERT INTO flightsearch SET ?", req.body, function (error, results) {
             if (error) throw error;
-            console.log(results);
+            // console.log(results);
             res.json("results.insertID");
         });
     });

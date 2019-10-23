@@ -391,5 +391,5 @@ const cityNameW = (code) => {
     };
     return cityObject = (cityObject.Id == 1780) ? 'Constanta' : cityObject.Name;
 };
-cityNameW(destinationCode)
-console.log(newId, cityObject);
+//cityNameW(destinationCode)
+//console.log(newId, cityObject);

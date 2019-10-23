@@ -23,7 +23,6 @@ app.use(express.json());
 app.use(cors());
 
 let flightsData,
-    cityObject,
     zone = "RO",
     currency = "EUR",
     lang = "en-US",
@@ -47,7 +46,7 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
             return destinationCode;
         })
         .then(responseKey => skyKeySession(inboundDate, cabinClass, children, infants, groupPricing, zone, currency, lang,
-                originPlace, destinationCode, outboundDate, adults)
+            originPlace, destinationCode, outboundDate, adults)
             .then(skyKey => {
                 keySession = skyKey;
                 // console.log(keySession);
@@ -74,10 +73,13 @@ const flights = async function detailedFlightsData(originPlace, city, inboundDat
     let responseFlightsData = await flightsDataResponse;
     let originName = await responseFlightsData.Query.OriginPlace;
     let destinationName = responseFlightsData.Query.DestinationPlace;
-    let wheatherOrigin = await cityNameW(responseFlightsData.Places, originName);
+    let wheatherOrigin = cityNameW(responseFlightsData.Places, originName);
     let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
+
+    console.log({ wheatherOrigin, wheatherDestination });
+
     console.log(await predictedWheather(wheatherOrigin));
-    console.log(await predictedWheather(wheatherDestination), responseFlightsData.Query);
+    console.log(await predictedWheather(wheatherDestination));
 
     // console.log(JSON.stringify({ responseFlightsData }));
     let insertData = JSON.stringify({
@@ -93,27 +95,17 @@ const flights = async function detailedFlightsData(originPlace, city, inboundDat
 };
 
 function cityNameW(locationArray, code) {
-    locationArray.find(item => {
+    if (code == 1780) return 'Constanta';
+    const item = locationArray.find(item => {
         if (item.Id == code) {
-            if (item.Type == "City") {
-                return cityObject = item;
-            };
+            return true;
         };
-        newId = item.ParentId;
-        return item.Id == code;
     });
-    // console.log(cityObject);
-    if (cityObject == null) {
-        locationArray.find(item => {
-            if (item.Id == newId) {
-                if (item.Type == "City") {
-                    return cityObject = item;
-                };
-            };
-            return item.Id == newId;
-        });
-    };
-    return cityObject = (cityObject.Id == 1780) ? 'Constanta' : cityObject.Name;
+
+    console.log({ item })
+
+    if (item.Type == "City") return item.Name;
+    return cityNameW(locationArray, item.ParentId)
 };
 
 app.get('/items', function (req, res) {
@@ -158,13 +150,19 @@ app.post("/items", function (req, res) {
                 return originPlace;
             };
             let destination = (items) => {
-                return items.destination == 'Moscova' ? 'Moscow' : items.destination;
+                if (items.destination == 'Moscova') {
+                    return 'Moscow'
+                };
+                if (items.destination == 'Londra') {
+                    return 'London'
+                };
+                return items.destination
             };
 
             let outboundDate = items.outboundDate;
             let inboundDate = items.inboundDate;
 
-            console.log(items);
+            //console.log(items);
             flights(originCod(items), destination(items), inboundDate, outboundDate, insertId);
 
         });
@@ -173,10 +171,10 @@ app.post("/items", function (req, res) {
 app.put("/items/:id", function (req, res) {
     let updateItem = req.body;
     connection.query("UPDATE flightsearch SET ? WHERE id=?", [
-            // req.body,
-            updateItem,
-            req.params.id
-        ],
+        // req.body,
+        updateItem,
+        req.params.id
+    ],
         function (error, res) {
             if (error) throw error;
             res.json()
