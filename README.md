@@ -1,3 +1,3 @@
 # Portofolio
-My portofolio
-On construction
+My portofolio.
+Under construction
