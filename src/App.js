@@ -1,6 +1,8 @@
 import React from 'react';
 // import axios from "axios";
 import './App.css';
+import FlightForm from './components/FlightForm'
+
 
 // class App extends Component {
 //   constructor(props) {
@@ -19,6 +21,7 @@ function App() {
     <div className="mainContainer">
       <header className="App-header">
         <h1 className="pageTitle">Flights search engine</h1>
+        <p className="powered">Powered by Skyscanner</p>
       </header>
       <main className="mainContent">
         <div className="sideContainers historyOfSearch">
@@ -27,7 +30,8 @@ function App() {
         </div>
         <div className="middleContainer">
           <div className="formContainer">
-            <form className="containerForm" autoComplete="on" action="http://localhost:8080/items" method="post">
+            <FlightForm />
+            {/* <form className="containerForm" autoComplete="on" action="http://localhost:8080/items" method="post">
               <label className="originCity">Flying from:</label>
               <select className="originCity" name="originCity">
                 <option className="city" value="Bucuresti">Bucuresti</option>
@@ -79,13 +83,13 @@ function App() {
                 <option className="cabinClass" value="business">Business</option>
                 <option className="cabinClass" value="first">First</option>
               </select>
-              <button>Submit</button>
-            </form>
-          </div>
+              <button>Submit</button> */}
+            {/* </form> */}
         </div>
-        <div className="sideContainers forecastWheather">
-          <div className="sideImage wheatherImage"></div>
         </div>
+      <div className="sideContainers forecastWheather">
+        <div className="sideImage wheatherImage"></div>
+      </div>
       </main>
     </div >
   );
