@@ -76,12 +76,11 @@ const flights = async function detailedFlightsData(originPlace, city, inboundDat
     let wheatherOrigin = cityNameW(responseFlightsData.Places, originName);
     let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
 
-    console.log({ wheatherOrigin, wheatherDestination });
+    // console.log({ wheatherOrigin, wheatherDestination });
 
     console.log(await predictedWheather(wheatherOrigin));
     console.log(await predictedWheather(wheatherDestination));
 
-    // console.log(JSON.stringify({ responseFlightsData }));
     let insertData = JSON.stringify({
         responseFlightsData
     });
@@ -90,7 +89,7 @@ const flights = async function detailedFlightsData(originPlace, city, inboundDat
             if (err) throw err;
             console.log(`Changed ${result.changedRows} row(s)`);
         });
-    console.log(responseFlightsData.Query);
+    // console.log(responseFlightsData.Query);
     return responseFlightsData;
 };
 
@@ -102,7 +101,7 @@ function cityNameW(locationArray, code) {
         };
     });
 
-    console.log({ item })
+    // console.log({ item })
 
     if (item.Type == "City") return item.Name;
     return cityNameW(locationArray, item.ParentId)
@@ -120,10 +119,11 @@ app.get('/items', function (req, res) {
 });
 
 app.post("/items", function (req, res) {
+    // console.log(req.body);
     let items = req.body,
         insertItems = {
-            origin: items.origin,
-            destination: items.destination,
+            origin: items.originPlace,
+            destination: items.destinationPlace,
             outboundDate: items.outboundDate,
             inboundDate: items.inboundDate
         };
@@ -132,37 +132,37 @@ app.post("/items", function (req, res) {
         function (error, results) {
             if (error) throw error;
             let insertId = results.insertId;
-            console.log(results.insertId);
+            console.log(insertId, insertItems);
             res.json("results.insertID");
             let originCod = (items) => {
-                if (items.origin == "Bucuresti") {
+                if (items.originPlace == "Bucuresti") {
                     return originPlace = "OTP-sky"
                 };
-                if (items.origin == "Cluj Napoca") {
-                    return originPlace = "CLJ-sky"
+                if (items.originPlace == "Cluj Napoca") {
+                    return "CLJ-sky"
                 };
-                if (items.origin == "Constanta") {
+                if (items.originPlace == "Constanta") {
                     return originPlace = "CND-sky"
                 };
-                if (items.origin == "Timisoara") {
+                if (items.originPlace == "Timisoara") {
                     return originPlace = "TSR-sky"
                 };
                 return originPlace;
             };
             let destination = (items) => {
-                if (items.destination == 'Moscova') {
+                if (items.destinationPlace == 'Moscova') {
                     return 'Moscow'
                 };
-                if (items.destination == 'Londra') {
+                if (items.destinationPlace == 'Londra') {
                     return 'London'
                 };
-                return items.destination
+                return items.destinationPlace
             };
 
             let outboundDate = items.outboundDate;
             let inboundDate = items.inboundDate;
 
-            //console.log(items);
+            // console.log(items);
             flights(originCod(items), destination(items), inboundDate, outboundDate, insertId);
 
         });
