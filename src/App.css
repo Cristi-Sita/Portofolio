@@ -1,6 +1,8 @@
 body {
   /* text-align: center; */
   margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .App-header {
@@ -55,7 +57,7 @@ body {
 }
 .mainContent {
 display: flex;
-position: fixed;
+position: absolute;
 top: 11.5vh;
 width: 100vw;
 }
@@ -63,9 +65,11 @@ width: 100vw;
 .sideContainers {
   background-color: rgb(134, 169, 201);
   border-radius: 5px;
-  height: 100vh;
+  height: 86vh;
   flex-grow: 1;
-  max-width: 20%;  
+  max-width: 20%;
+  position: sticky;
+  top: 11.5vh;  
 }
 
 .middleContainer {
@@ -98,8 +102,11 @@ background-image: url("./components/img/commercialAirplane.jpg");
   background-image: url("./components/img/Wheather.jpg");
 }
 
-/* .formContainer {
-  margin: 8px;
-  background-color: rgba(241, 126, 241, 0.185);
-  color: rgb(0, 0, 0);
+.city {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+/* .arrow {
+  text-decoration: line-through;
 } */

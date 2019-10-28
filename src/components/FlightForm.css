@@ -1,5 +1,5 @@
 .flightFormContainer {
-    margin: 8px;
+    margin: 1%;
     border-radius: 5px;
     background-color: rgba(72, 91, 123, 0.479);
     color: rgb(0, 0, 0);
@@ -13,7 +13,7 @@ input[type="date"]::-webkit-inner-spin-button {
     display: flex;
     flex-wrap: wrap;
     max-width: 90%;
-    margin: 0;
+    margin: auto;
     padding: 8px;
     font-size: 110%;
 }
@@ -29,6 +29,7 @@ input {
 }
 
 span {
+    max-width: 90%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }

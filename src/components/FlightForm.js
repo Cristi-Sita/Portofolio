@@ -5,8 +5,8 @@ class FlightForm extends Component {
     constructor() {
         super();
         const now = new Date();
-        let outboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3);
-        let inboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
+        let outboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let inboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
         this.state = {
             originPlace: "Cluj Napoca",
