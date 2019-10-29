@@ -16,8 +16,10 @@ const flightsResponse = (skyKey) => {
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
             "x-rapidapi-key": "b9c7c90ac5msh1d13934c747c5a9p1f4f81jsn20ae86b5fd64"
         }, "params": {
+            "sortType": "price",
+            "sortOrder": "asc",
             "pageIndex": "0",
-            "pageSize": "100"
+            "pageSize": "50"
         }
     })
         .then((response) => {
@@ -31,7 +33,6 @@ const flightsResponse = (skyKey) => {
                 return flightsResponse(skyKey);
             }
             flightsResponseData = response;
-            //     console.log(flightsResponseData.Status);
             return flightsResponseData;
         })
         .catch((error) => {

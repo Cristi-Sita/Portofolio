@@ -60,7 +60,6 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
                 return flightsData;
             })
         )
-        // .then(() => console.log(flightsData.Status))
         .catch((error) => {
             console.log(error)
         })
