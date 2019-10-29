@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+// import FlightCard from "./FlightCard";
 
 class FlightForm extends Component {
     constructor() {
@@ -34,6 +35,8 @@ class FlightForm extends Component {
         console.log(this.state)
         axios.post('http://localhost:8080/items', this.state)
             .then(response => console.log(response))
+            // .then(() => new Promise(resolve => setTimeout(resolve, 3000)))
+            // .then(_response => FlightCard())
             .catch(error => console.log(error));
 
     }
@@ -42,7 +45,10 @@ class FlightForm extends Component {
 
         return (
             <div className="flightFormContainer">
-                <form className="flightForm" onSubmit={this.handleSubmit}>
+                <form
+                    className="flightForm"
+                    onSubmit={this.handleSubmit}
+                >
                     <span>
                         <label>Flying from: </label>
                         <select
@@ -111,12 +117,14 @@ class FlightForm extends Component {
                         <option value="3"> 3 </option>
                     </select>
                     <div className="subButton">
-                        <button type="submit">
+                        <button
+                            type="submit"
+                        >
                             Search
                         </button>
                     </div>
-
                 </form>
+                {/* <FlightCard /> */}
             </div>
         );
     }

@@ -5,18 +5,20 @@ import './App.css';
 import './components/FlightForm.css'
 import FlightCard from './components/FlightCard';
 
+
+
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      // App()
     };
-  }
+  };
 
-  //   componentDidMount() {
-  //     this.loadItems();
-  //   }
+  // componentDidMount() {
+  //   Delay();
+  // }
+
   render() {
     return (
       <div className="mainContainer">
@@ -42,4 +44,5 @@ class App extends Component {
     );
   };
 };
+
 export default App;
