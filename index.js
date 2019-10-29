@@ -56,10 +56,11 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
         .then(flightsResult => flightsSession(keySession)
             .then(flightsResponseData => {
                 flightsData = flightsResponseData;
-                // console.log(flightsData);
+                console.log(flightsData.Query);
                 return flightsData;
             })
         )
+        // .then(() => console.log(flightsData.Status))
         .catch((error) => {
             console.log(error)
         })
@@ -186,7 +187,7 @@ app.delete("/items/:id", function (req, res) {
     connection.query("DELETE FROM flightsearch WHERE id=?", req.params.id,
         function (error, res) {
             if (error) throw error;
-            res.json()
+            res.json("results.deletedID")
         }
     );
 });

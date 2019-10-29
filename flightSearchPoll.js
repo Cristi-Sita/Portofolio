@@ -17,17 +17,26 @@ const flightsResponse = (skyKey) => {
             "x-rapidapi-key": "b9c7c90ac5msh1d13934c747c5a9p1f4f81jsn20ae86b5fd64"
         }, "params": {
             "pageIndex": "0",
-            "pageSize": "10"
+            "pageSize": "100"
         }
     })
         .then((response) => {
             flightsResponseData = response.data;
-            // console.log(flightsResponseData);
+            console.log(flightsResponseData.Status);
+            return flightsResponseData;
+        })
+        .then((response) => {
+            if (response.Status != "UpdatesComplete") {
+                console.log(response.Status, response.SessionKey);
+                return flightsResponse(skyKey);
+            }
+            flightsResponseData = response;
+            //     console.log(flightsResponseData.Status);
             return flightsResponseData;
         })
         .catch((error) => {
             console.log("Pool was wrong.")
-        })
+        });
 };
 //Export module
 module.exports = flightsResponse;
