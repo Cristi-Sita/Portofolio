@@ -1,8 +1,16 @@
 .flightFormContainer {
     margin: 1%;
     border-radius: 5px;
-    background-color: rgba(72, 91, 123, 0.479);
+    background: linear-gradient(rgba(44, 42, 150, 0.726), rgba(42, 150, 96, 0.74));
     color: rgb(0, 0, 0);
+    box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
+    transition: all 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.flightFormContainer:hover {
+    transform: scale(1.05);
+    -ms-transform: scale(1.05); /* IE 9 */
+    -webkit-transform: scale(1.05); /* Safari prior 9.0 */
 }
 
 input[type="date"]::-webkit-inner-spin-button { 
@@ -12,9 +20,9 @@ input[type="date"]::-webkit-inner-spin-button {
 .flightForm {
     display: flex;
     flex-wrap: wrap;
-    max-width: 90%;
+    max-width: 95%;
     margin: auto;
-    padding: 8px;
+    padding: 3vh 0;
     font-size: 110%;
 }
 
@@ -28,8 +36,9 @@ input {
     width: 30%;
 }
 
-span {
-    max-width: 90%;
+.formRow {
+    max-width: 95%;
     display: flex;
     justify-content: space-between;
+    margin: auto;
 }

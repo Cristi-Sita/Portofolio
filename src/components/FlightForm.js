@@ -3,8 +3,8 @@ import axios from "axios";
 // import FlightCard from "./FlightCard";
 
 class FlightForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         const now = new Date();
         let outboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         let inboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -12,18 +12,17 @@ class FlightForm extends Component {
         this.state = {
             originPlace: "Cluj Napoca",
             destinationPlace: "",
-            inboundDate: [inboundDate],
-            outboundDate: [outboundDate],
+            inboundDate: inboundDate,
+            outboundDate: outboundDate,
             cabinClass: "economy",
             adults: "1",
             country: "RO",
             currency: "EUR",
-            locale: "en-US",
+            locale: "en-US"
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
 
     handleChange = event => {
         const { name, value } = event.target
@@ -35,10 +34,12 @@ class FlightForm extends Component {
         console.log(this.state)
         axios.post('http://localhost:8080/items', this.state)
             .then(response => console.log(response))
-            // .then(() => new Promise(resolve => setTimeout(resolve, 3000)))
-            // .then(_response => FlightCard())
             .catch(error => console.log(error));
 
+    }
+
+    componentDidMount() {
+        console.log(this.state.outboundDate)
     }
 
     render() {
@@ -49,8 +50,8 @@ class FlightForm extends Component {
                     className="flightForm"
                     onSubmit={this.handleSubmit}
                 >
-                    <span>
-                        <label>Flying from: </label>
+                    <div className="formRow">
+                        <label for="originPlace">Flying from: </label>
                         <select
                             name="originPlace"
                             required
@@ -62,7 +63,7 @@ class FlightForm extends Component {
                             <option className="city" value="Constanta">Constanta</option>
                             <option className="city" value="Timisoara">Timisoara</option>
                         </select>
-                        <label>Flying to: </label>
+                        <label for="destinationPlace">Flying to: </label>
                         <input
                             type="text"
                             name="destinationPlace"
@@ -71,11 +72,12 @@ class FlightForm extends Component {
                             value={this.state.destinationPlace}
                             onChange={this.handleChange}
                         />
-                    </span>
-                    <span>
-                        <label>Departure Date</label>
+                    </div>
+                    <div className="formRow">
+                        <label for="outboundDate">Departure date</label>
                         <input
                             type='date'
+                            id="datePickerId"
                             name='outboundDate'
                             required
                             // placeholder={date}
@@ -83,7 +85,7 @@ class FlightForm extends Component {
                             value={this.state.outboundDate}
                             onChange={this.handleChange}
                         />
-                        <label>Return Date</label>
+                        <label for="inboundDate">Return date</label>
                         <input
                             type='date'
                             name='inboundDate'
@@ -92,30 +94,32 @@ class FlightForm extends Component {
                             value={this.state.intboundDate}
                             onChange={this.handleChange}
                         />
-                    </span>
-                    <label>Cabin Class</label>
-                    <select
-                        type="text"
-                        name="cabinClass"
-                        value={this.state.cabinClass}
-                        onChange={this.handleChange}
-                    >
-                        <option value="economy"> Economy </option>
-                        <option value="premiumeconomy"> Premium Economy </option>
-                        <option value="business"> Business </option>
-                        <option value="first"> First </option>
-                    </select>
-                    <label>Passenger Count</label>
-                    <select
-                        type="text"
-                        name="adults"
-                        value={this.state.adults}
-                        onChange={this.handleChange}
-                    >
-                        <option value="1"> 1 </option>
-                        <option value="2"> 2 </option>
-                        <option value="3"> 3 </option>
-                    </select>
+                    </div>
+                    <div className="formRow">
+                        <label for="cabinClass">Cabin Class</label>
+                        <select
+                            type="text"
+                            name="cabinClass"
+                            value={this.state.cabinClass}
+                            onChange={this.handleChange}
+                        >
+                            <option value="economy"> Economy </option>
+                            <option value="premiumeconomy"> Premium Economy </option>
+                            <option value="business"> Business </option>
+                            <option value="first"> First </option>
+                        </select>
+                        <label for="adults">Passenger Count</label>
+                        <select
+                            type="text"
+                            name="adults"
+                            value={this.state.adults}
+                            onChange={this.handleChange}
+                        >
+                            <option value="1"> 1 </option>
+                            <option value="2"> 2 </option>
+                            <option value="3"> 3 </option>
+                        </select>
+                    </div>
                     <div className="subButton">
                         <button
                             type="submit"

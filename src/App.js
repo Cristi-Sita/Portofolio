@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import FlightForm from './components/FlightForm';
 import './App.css';
 import './components/FlightForm.css'
+import './components/FlightCard.css'
+import './components/img/baloon.jpeg'
 import FlightCard from './components/FlightCard';
 
 
@@ -27,6 +29,7 @@ class App extends Component {
           <p className="powered">Powered by Skyscanner</p>
         </header>
         <main className="mainContent">
+          <img src={require('./components/img/baloon.jpeg')} alt="hot air baloon" />
           <div className="sideContainers historyOfSearch">
             <div className="sideImage airplaneImage"></div>
             <h3>The latest flight searches: </h3>

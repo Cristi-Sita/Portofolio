@@ -1,0 +1,68 @@
+.flightCardContainer {
+    margin: 1%;
+    /* border: 1px gray solid; */
+    border-radius: 6px;
+    background-image: radial-gradient(rgba(235, 135, 160, 0.603), rgba(255, 255, 255, 0.507), rgba(42, 150, 96, 0.568));
+    box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
+    transition: all 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  }
+  
+.flightCardContainer:hover {
+    padding: 2vh 0;
+    transform: scale(1.05);
+    -ms-transform: scale(1.05); /* IE 9 */
+    -webkit-transform: scale(1.05); /* Safari prior 9.0 */
+}
+
+  .flightCardRoute {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+    color: rgb(34, 139, 34);
+  }
+  
+  .flightCardDateContainer {
+    text-align: center;
+    min-width: 45%;
+    margin-right: 5%;
+  }
+  
+  .flightCardGetPrice {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .flightCardDate {
+    margin-left: 1%;
+  }
+  
+  .flightCardDateH {
+    color: rgb(139, 0, 0);
+  }
+  
+  .priceContainer {
+    max-width: 45%;
+  }
+  
+  .priceStyle {
+    color: rgb(0, 0, 255);
+  }
+  
+  .noMarginTopTag {
+    margin-top: 0;
+  }
+  
+  .anchorBtn { 
+      background-color: rgba(251, 255, 0, 0.781); 
+      border: 1px solid black;
+      border-radius: 5px; 
+      color: green; 
+      padding: 5px 10px; 
+      text-align: center;
+      text-decoration: none; 
+      display: inline-block; 
+      font-size: 20px; 
+      margin: 10px 30px; 
+      cursor: pointer; 
+  } 
+  
