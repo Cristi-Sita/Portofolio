@@ -19,7 +19,7 @@ const flightsResponse = (skyKey) => {
             "sortType": "price",
             "sortOrder": "asc",
             "pageIndex": "0",
-            "pageSize": "50"
+            "pageSize": "10"
         }
     })
         .then((response) => {

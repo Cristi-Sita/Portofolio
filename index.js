@@ -23,18 +23,18 @@ app.use(express.json());
 app.use(cors());
 
 let flightsData,
-    zone = "RO",
-    currency = "EUR",
-    lang = "en-US",
+    // zone = "RO",
+    // currency = "EUR",
+    // lang = "en-US",
     // city = "Amsterdam",
     // inboundDate = "2019-10-20",
-    cabinClass = "economy",
+    // cabinClass = "economy",
     children = "0",
     infants = "0",
-    groupPricing = "false",
-    // originPlace = "CLJ-sky",
-    // outboundDate = "2019-10-14",
-    adults = "1";
+    groupPricing = "false";
+// originPlace = "CLJ-sky",
+// outboundDate = "2019-10-14",
+// adults = "1";
 
 
 const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, children, infants, groupPricing, originPlace,
@@ -65,7 +65,8 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
         })
 };
 
-const flights = async function detailedFlightsData(originPlace, city, inboundDate, outboundDate, insertID) {
+const flights = async function detailedFlightsData(zone, currency, lang, city, inboundDate, cabinClass, children,
+    infants, groupPricing, originPlace, outboundDate, adults, insertID) {
 
     const flightsDataResponse = await flightsResponse(zone, currency, lang, city, inboundDate, cabinClass, children,
         infants, groupPricing, originPlace, outboundDate, adults);
@@ -80,7 +81,7 @@ const flights = async function detailedFlightsData(originPlace, city, inboundDat
 
     console.log(await predictedWheather(wheatherOrigin));
     console.log(await predictedWheather(wheatherDestination));
-
+    sortFlightsData = (responseFlightsData)
     let insertData = JSON.stringify({
         responseFlightsData
     });
@@ -108,7 +109,7 @@ function cityNameW(locationArray, code) {
 };
 
 app.get('/items', function (req, res) {
-    connection.query('SELECT * FROM flightsearch', function (
+    connection.query('SELECT * FROM flightsearch ORDER BY id DESC LIMIT 1', function (
         error,
         results,
         fields
@@ -159,11 +160,19 @@ app.post("/items", function (req, res) {
                 return items.destinationPlace
             };
 
-            let outboundDate = items.outboundDate;
-            let inboundDate = items.inboundDate;
+            let originPlace = originCod(items),
+                city = destination(items),
+                outboundDate = items.outboundDate,
+                inboundDate = items.inboundDate,
+                cabinClass = items.cabinClass,
+                adults = items.adults,
+                zone = items.country,
+                currency = items.currency,
+                lang = items.locale;
 
             // console.log(items);
-            flights(originCod(items), destination(items), inboundDate, outboundDate, insertId);
+            flights(zone, currency, lang, city, inboundDate, cabinClass, children,
+                infants, groupPricing, originPlace, outboundDate, adults, insertId);
 
         });
 });
