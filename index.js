@@ -109,14 +109,15 @@ function cityNameW(locationArray, code) {
 };
 
 app.get('/items', function (req, res) {
-    connection.query('SELECT * FROM flightsearch ORDER BY id DESC LIMIT 1', function (
+    connection.query('SELECT * FROM flightsearch ORDER BY id DESC LIMIT 3', function (
         error,
         results,
         fields
     ) {
         if (error) throw error;
         res.json(results);
-    });
+        console.log("Ok!");
+    })
 });
 
 app.post("/items", function (req, res) {
