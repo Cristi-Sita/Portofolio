@@ -1,7 +1,7 @@
 .flightCardContainer {
-    margin: 1%;
+    margin: 1% 0.5%;
     /* border: 1px gray solid; */
-    border-radius: 6px;
+    border-radius: 45%;
     background-image: radial-gradient(rgba(235, 135, 160, 0.603), rgba(255, 255, 255, 0.507), rgba(42, 150, 96, 0.568));
     box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
     transition: all 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
@@ -14,9 +14,13 @@
     -webkit-transform: scale(1.05); /* Safari prior 9.0 */
 }
 
+h2, .arrow {
+  margin-right: 1%;
+}
+
   .flightCardRoute {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: baseline;
     color: rgb(34, 139, 34);
   }
@@ -42,20 +46,18 @@
   
   .priceContainer {
     max-width: 45%;
+    text-align: center;
   }
   
   .priceStyle {
     color: rgb(0, 0, 255);
   }
-  
-  .noMarginTopTag {
-    margin-top: 0;
-  }
-  
+
   .anchorBtn { 
       background-color: rgba(251, 255, 0, 0.781); 
       border: 1px solid black;
-      border-radius: 5px; 
+      border-radius: 5px;
+      box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
       color: green; 
       padding: 5px 10px; 
       text-align: center;

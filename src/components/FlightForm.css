@@ -4,14 +4,14 @@
     background: linear-gradient(rgba(44, 42, 150, 0.726), rgba(42, 150, 96, 0.74));
     color: rgb(0, 0, 0);
     box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
-    transition: all 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    /* transition: all 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95); */
 }
 
-.flightFormContainer:hover {
+/* .flightFormContainer:hover {
     transform: scale(1.05);
     -ms-transform: scale(1.05); /* IE 9 */
-    -webkit-transform: scale(1.05); /* Safari prior 9.0 */
-}
+    /* -webkit-transform: scale(1.05); /* Safari prior 9.0 
+} */ 
 
 input[type="date"]::-webkit-inner-spin-button { 
     display: none;

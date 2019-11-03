@@ -5,15 +5,15 @@ import axios from "axios";
 class FlightForm extends Component {
     constructor(props) {
         super(props);
-        const now = new Date();
-        let outboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        let inboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        // const now = new Date();
+        // let outboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        // let inboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
         this.state = {
             originPlace: "Cluj Napoca",
             destinationPlace: "",
-            inboundDate: inboundDate,
-            outboundDate: outboundDate,
+            inboundDate: new Date().toLocaleDateString(),
+            outboundDate: new Date().toLocaleDateString(),
             cabinClass: "economy",
             adults: "1",
             country: "RO",

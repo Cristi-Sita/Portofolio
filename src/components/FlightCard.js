@@ -6,8 +6,7 @@ class FlightCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            item: [],
-            // elemn: {},
+            items: [],
             flightsParams: {},
             flightsData: {},
             itineraries: [],
@@ -23,21 +22,33 @@ class FlightCard extends Component {
     loadItems = () => {
         return axios.get("http://localhost:8080/items")
             .then(response => {
-                this.setState({ item: response.data });
-                this.setState({ flightsParams: this.state.item[0] });
+                this.setState({ items: response.data });
+                this.setState({ flightsParams: this.state.items[0] });
                 this.setState({ flightsData: JSON.parse(this.state.flightsParams.flightsData) });
                 this.setState({ itineraries: this.state.flightsData.responseFlightsData.Itineraries });
-                this.setState({ price: this.state.itineraries[0].PricingOptions })
-                // this.setState({ sortPrice: misho(this.state.itineraries)[0][0] });
-                // this.setState({ sortPrice: misho(this.state.itineraries) })
+                this.setState({
+                    price: this.state.itineraries[0].PricingOptions.concat(this.state.itineraries[1]
+                        .PricingOptions).concat(this.state.itineraries[2].PricingOptions)
+                        .concat(this.state.itineraries[3].PricingOptions)
+                });
+                this.setState({
+                    sortPrice: this.state.price.sort((a, b) => {
+                        return Number(a.Price) - Number(b.Price);
+                    })
+                });
             })
-            .then(() => {
-                console.log(/*this.state.item, this.state.flightsParams, this.state.itineraries[0].PricingOptions,*/
-                    this.state.price, this.state.price[0].Price)
-            })
+
+        /*.then(() => {
+            console.log(/*this.state.item, this.state.flightsData, this.state.itineraries,
+                this.state.sortPrice, this.state.price[0].Price)
+        })*/
     }
 
     componentDidMount() {
+        this.loadItems()
+    }
+
+    componentWillUnmount() {
         this.loadItems()
     }
 
@@ -51,9 +62,9 @@ class FlightCard extends Component {
                         className="flightCardContainer"
                     >
                         <div className="flightCardRoute">
-                            <h4 className="arrow">From </h4>
+                            <h4 className="arrow">From  </h4>
                             <h2> {this.state.flightsParams.origin}</h2>
-                            <h4 className="arrow">fligh to </h4>
+                            <h4 className="arrow">  fligh to  </h4>
                             <h2>{this.state.flightsParams.destination}</h2>
                         </div>
 
@@ -83,8 +94,5 @@ class FlightCard extends Component {
         );
     };
 };
-
-// const misho = arr => arr.map(elemn => { return elemn.PricingOptions })
-
 
 export default FlightCard;
