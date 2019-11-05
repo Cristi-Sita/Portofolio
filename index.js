@@ -8,8 +8,6 @@ const citySkyCodeReq = require("./findCitySkyCode"),
     skyKeySession = require("./flightSearchPost"),
     flightsSession = require("./flightSearchPoll"),
     predictedWheather = require("./predictedWheather");
-// mySQLCollection = require("./mySQLConnection");
-
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -17,6 +15,7 @@ const connection = mysql.createConnection({
     password: 'Naiceface19!',
     database: 'flightsearch'
 });
+
 connection.connect();
 
 app.use(express.json());
@@ -78,14 +77,22 @@ const flights = async function detailedFlightsData(zone, currency, lang, city, i
     let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
 
     // console.log({ wheatherOrigin, wheatherDestination });
-
-    console.log(await predictedWheather(wheatherOrigin));
-    console.log(await predictedWheather(wheatherDestination));
-    sortFlightsData = (responseFlightsData)
+    let wheathOrigin = await predictedWheather(wheatherOrigin);
+    let wheathDestination = await predictedWheather(wheatherDestination);
+    console.log(wheathOrigin);
+    console.log(wheathDestination);
+    // sortFlightsData = (responseFlightsData)
     let insertData = JSON.stringify({
         responseFlightsData
-    });
-    connection.query('UPDATE flightsearch SET flightsData = ? WHERE id = ?', [insertData, insertID],
+    }),
+        insertWhOrigin = JSON.stringify({
+            wheathOrigin
+        }),
+        insertWhDestination = JSON.stringify({
+            wheathDestination
+        });
+    connection.query('UPDATE flightsearch SET flightsData = ?, wheatherorigin = ?, wheatherdestination =? WHERE id = ?',
+        [insertData, insertWhOrigin, insertWhDestination, insertID],
         function (err, result) {
             if (err) throw err;
             console.log(`Changed ${result.changedRows} row(s)`);
@@ -109,7 +116,7 @@ function cityNameW(locationArray, code) {
 };
 
 app.get('/items', function (req, res) {
-    connection.query('SELECT * FROM flightsearch ORDER BY id DESC LIMIT 3', function (
+    connection.query('SELECT * FROM flightsearch ORDER BY id DESC LIMIT 5', function (
         error,
         results,
         fields
@@ -134,31 +141,32 @@ app.post("/items", function (req, res) {
         function (error, results) {
             if (error) throw error;
             let insertId = results.insertId;
-            console.log(insertId, insertItems);
+            console.log(insertId, insertItems, items);
             res.json("results.insertID");
-            let originCod = (items) => {
-                if (items.originPlace == "Bucuresti") {
+            let originCod = (elemn) => {
+                let originPlace;
+                if (elemn.originPlace === "Bucuresti") {
                     return originPlace = "OTP-sky"
-                };
-                if (items.originPlace == "Cluj Napoca") {
+                }
+                else if (elemn.originPlace === "Cluj Napoca") {
                     return "CLJ-sky"
-                };
-                if (items.originPlace == "Constanta") {
+                }
+                else if (elemn.originPlace === "Constanta") {
                     return originPlace = "CND-sky"
-                };
-                if (items.originPlace == "Timisoara") {
+                }
+                else if (elemn.originPlace === "Timisoara") {
                     return originPlace = "TSR-sky"
                 };
                 return originPlace;
             };
-            let destination = (items) => {
-                if (items.destinationPlace == 'Moscova') {
+            let destination = (elemn) => {
+                if (elemn.destinationPlace == 'Moscova') {
                     return 'Moscow'
                 };
-                if (items.destinationPlace == 'Londra') {
+                if (elemn.destinationPlace == 'Londra') {
                     return 'London'
                 };
-                return items.destinationPlace
+                return elemn.destinationPlace
             };
 
             let originPlace = originCod(items),
@@ -200,6 +208,5 @@ app.delete("/items/:id", function (req, res) {
         }
     );
 });
-
 
 app.listen(8080);

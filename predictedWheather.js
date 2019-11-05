@@ -10,7 +10,7 @@ const weatherForecast = (city) => {
             "x-rapidapi-key": "b9c7c90ac5msh1d13934c747c5a9p1f4f81jsn20ae86b5fd64"
         }, "params": {
             "q": city,
-            "cnt": "1",
+            "cnt": "16",
             "units": "metric",
             "lang": "ro"
         }

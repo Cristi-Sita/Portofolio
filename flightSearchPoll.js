@@ -19,7 +19,7 @@ const flightsResponse = (skyKey) => {
             "sortType": "price",
             "sortOrder": "asc",
             "pageIndex": "0",
-            "pageSize": "20"
+            "pageSize": "10"
         }
     })
         .then((response) => {
@@ -29,10 +29,11 @@ const flightsResponse = (skyKey) => {
         })
         .then((response) => {
             if (response.Status != "UpdatesComplete") {
-                console.log(response.Status, response.SessionKey);
+                console.log(response.Status);
                 return flightsResponse(skyKey);
             }
             flightsResponseData = response;
+            console.log(response.Status);
             return flightsResponseData;
         })
         .catch((error) => {
