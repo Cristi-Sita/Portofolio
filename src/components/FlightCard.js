@@ -26,11 +26,7 @@ class FlightCard extends Component {
                 this.setState({ flightsParams: this.state.items[0] });
                 this.setState({ flightsData: JSON.parse(this.state.flightsParams.flightsData) });
                 this.setState({ itineraries: this.state.flightsData.responseFlightsData.Itineraries });
-                this.setState({
-                    price: this.state.itineraries[0].PricingOptions.concat(this.state.itineraries[1]
-                        .PricingOptions).concat(this.state.itineraries[2].PricingOptions)
-                        .concat(this.state.itineraries[3].PricingOptions)
-                });
+                this.setState({ price: concatItineraries(this.state.itineraries) });
                 this.setState({
                     sortPrice: this.state.price.sort((a, b) => {
                         return Number(a.Price) - Number(b.Price);
@@ -38,10 +34,10 @@ class FlightCard extends Component {
                 });
             })
 
-        /*.then(() => {
-            console.log(/*this.state.item, this.state.flightsData, this.state.itineraries,
-                this.state.sortPrice, this.state.price[0].Price)
-        })*/
+        // .then(() => {
+        //     console.log(this.state.item, this.state.flightsData, this.state.itineraries,
+        //         this.state.sortPrice, this.state.price[0].Price)
+        // })
     }
 
     componentDidMount() {
@@ -94,5 +90,17 @@ class FlightCard extends Component {
         );
     };
 };
+
+const concatItineraries = (elemns) => {
+    if (elemns.length === 0) return alert("Something is wrong!")
+    else if (elemns.length === 1) {
+        return elemns[0].PricingOptions;
+    }
+    else if (elemns.length === 2) {
+        return elemns[0].PricingOptions.concat(elemns[1].PricingOptions);
+    }
+    return elemns[0].PricingOptions.concat(elemns[1].PricingOptions).concat(elemns[2].PricingOptions)
+        .concat(elemns[3].PricingOptions);
+}
 
 export default FlightCard;

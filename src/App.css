@@ -73,6 +73,7 @@ display: flex;
 position: absolute;
 top: 11.5vh;
 width: 100vw;
+z-index: -10;
 }
 
 img {
@@ -86,6 +87,7 @@ img {
   .noMarginTopTag {
     margin-top: 0;
     margin-bottom: 2%;
+    text-align: center;
   }
 
 .sideContainers {
@@ -114,6 +116,7 @@ img {
   background-size: 100%;
   height: 11vh;
   border-radius: 5px;
+  margin-bottom: 15%;
 }
 
 .airplaneImage {
@@ -160,3 +163,9 @@ img {
   background-image: url("./components/img/Wheather.jpg");
 }
 
+.wheathCard {
+  margin-bottom: 5%;
+}
+.capitalizes {
+  text-transform: capitalize;
+}

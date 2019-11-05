@@ -33,13 +33,31 @@ class FlightForm extends Component {
         event.preventDefault();
         console.log(this.state)
         axios.post('http://localhost:8080/items', this.state)
+            .then(() => {
+                const delay = setTimeout(() => {
+                    this.loadItems();
+                    console.log("Try again!")
+                }, 3000)
+                if (this.response.data.items[0].wheatherdestination == null) {
+                    return delay();
+                }
+                return this.loadItems()
+            })
             .then(response => console.log(response))
             .catch(error => console.log(error));
-
     }
 
+    loadItems = () => {
+        return axios.get("http://localhost:8080/items")
+            .then(response => {
+                this.setState({ items: response.data });
+            })
+        // .then(() => console.log(this.state.wheatherdestination, this.state.items[0]/*.flightsData, */, this.state.cities[0]))
+    }
+
+
     componentDidMount() {
-        console.log(this.state.outboundDate)
+        this.loadItems()
     }
 
     render() {
@@ -51,7 +69,7 @@ class FlightForm extends Component {
                     onSubmit={this.handleSubmit}
                 >
                     <div className="formRow">
-                        <label for="originPlace">Flying from: </label>
+                        <label>Flying from: </label>
                         <select
                             name="originPlace"
                             required
@@ -63,7 +81,7 @@ class FlightForm extends Component {
                             <option className="city" value="Constanta">Constanta</option>
                             <option className="city" value="Timisoara">Timisoara</option>
                         </select>
-                        <label for="destinationPlace">Flying to: </label>
+                        <label>Flying to: </label>
                         <input
                             type="text"
                             name="destinationPlace"
@@ -74,7 +92,7 @@ class FlightForm extends Component {
                         />
                     </div>
                     <div className="formRow">
-                        <label for="outboundDate">Departure date</label>
+                        <label>Departure date</label>
                         <input
                             type='date'
                             id="datePickerId"
@@ -85,7 +103,7 @@ class FlightForm extends Component {
                             value={this.state.outboundDate}
                             onChange={this.handleChange}
                         />
-                        <label for="inboundDate">Return date</label>
+                        <label>Return date</label>
                         <input
                             type='date'
                             name='inboundDate'
@@ -96,7 +114,7 @@ class FlightForm extends Component {
                         />
                     </div>
                     <div className="formRow">
-                        <label for="cabinClass">Cabin Class</label>
+                        <label>Cabin Class</label>
                         <select
                             type="text"
                             name="cabinClass"
@@ -108,7 +126,7 @@ class FlightForm extends Component {
                             <option value="business"> Business </option>
                             <option value="first"> First </option>
                         </select>
-                        <label for="adults">Passenger Count</label>
+                        <label>Passenger Count</label>
                         <select
                             type="text"
                             name="adults"
