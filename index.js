@@ -79,8 +79,8 @@ const flights = async function detailedFlightsData(zone, currency, lang, city, i
     // console.log({ wheatherOrigin, wheatherDestination });
     let wheathOrigin = await predictedWheather(wheatherOrigin);
     let wheathDestination = await predictedWheather(wheatherDestination);
-    console.log(wheathOrigin);
-    console.log(wheathDestination);
+    console.log(wheathOrigin.cnt);
+    // console.log(wheathDestination);
     // sortFlightsData = (responseFlightsData)
     let insertData = JSON.stringify({
         responseFlightsData
@@ -123,7 +123,7 @@ app.get('/items', function (req, res) {
     ) {
         if (error) throw error;
         res.json(results);
-        console.log("Ok!");
+        // console.log("Ok!");
     })
 });
 

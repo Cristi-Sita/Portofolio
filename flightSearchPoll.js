@@ -1,13 +1,16 @@
 const axios = require("axios");
 let flightsResponseData;
 //
-//Create a poll session with SkyScanner key for all flights with selected params (origin, destination, date, passangers, etc.)
+// Create a poll session with SkyScanner key for all flights with selected params (origin, destination, date,
+//passangers, etc.)
 //
 
 // skyKey(example) = `d2b4f4d2-10ce-441a-bc10-fbb6f9bb0fe1`;
 
 const flightsResponse = (skyKey) => {
+
     //Create GET method to obtain all SkyScanner data for flights search
+
     return axios({
         "method": "GET",
         "url": `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/uk2/v1.0/${skyKey}`,
@@ -27,18 +30,19 @@ const flightsResponse = (skyKey) => {
             console.log(flightsResponseData.Status);
             return flightsResponseData;
         })
-        .then((response) => {
-            if (response.Status != "UpdatesComplete") {
-                console.log(response.Status);
-                return flightsResponse(skyKey);
+        .then((response) => {                           //For complet data must repeat "GET" until Status is 
+            if (response.Status != "UpdatesComplete") { //UpdatesComplete
+                return flightsResponse(skyKey);         //
             }
             flightsResponseData = response;
-            console.log(response.Status);
+            console.log(response.Status, skyKey);
             return flightsResponseData;
         })
         .catch((error) => {
-            console.log("Pool was wrong.")
+            console.log("Pool was wrong.", error.Code)
         });
 };
-//Export module
+
+//Exporting module
+
 module.exports = flightsResponse;
