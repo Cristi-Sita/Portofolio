@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
-// import FlightCard from "./FlightCard";
 
 class FlightForm extends Component {
     constructor(props) {
         super(props);
-        // const now = new Date();
-        // let outboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        // let inboundDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
         this.state = {
             originPlace: "Cluj Napoca",
@@ -20,45 +15,7 @@ class FlightForm extends Component {
             currency: "EUR",
             locale: "en-US"
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange = event => {
-        const { name, value } = event.target
-        this.setState({ [name]: value });
     };
-
-    handleSubmit = event => {
-        event.preventDefault();
-        console.log(this.state)
-        axios.post('http://localhost:8080/items', this.state)
-            .then(() => {
-                const delay = setTimeout(() => {
-                    this.loadItems();
-                    console.log("Try again!")
-                }, 3000)
-                if (this.response.data.items[0].wheatherdestination == null) {
-                    return delay();
-                }
-                return this.loadItems()
-            })
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
-    }
-
-    loadItems = () => {
-        return axios.get("http://localhost:8080/items")
-            .then(response => {
-                this.setState({ items: response.data });
-            })
-        // .then(() => console.log(this.state.wheatherdestination, this.state.items[0]/*.flightsData, */, this.state.cities[0]))
-    }
-
-
-    componentDidMount() {
-        this.loadItems()
-    }
 
     render() {
 
@@ -66,15 +23,15 @@ class FlightForm extends Component {
             <div className="flightFormContainer">
                 <form
                     className="flightForm"
-                    onSubmit={this.handleSubmit}
+                    onSubmit={this.props.handleSubmit}
                 >
                     <div className="formRow">
                         <label>Flying from: </label>
                         <select
                             name="originPlace"
                             required
-                            value={this.state.originPlace}
-                            onChange={this.handleChange}
+                            value={this.props.originPlace}
+                            onChange={this.props.handleChange}
                         >
                             <option className="city" value="Bucuresti">Bucuresti</option>
                             <option className="city" value="Cluj Napoca">Cluj Napoca</option>
@@ -87,8 +44,8 @@ class FlightForm extends Component {
                             name="destinationPlace"
                             placeholder="Bucuresti"
                             required
-                            value={this.state.destinationPlace}
-                            onChange={this.handleChange}
+                            value={this.props.destinationPlace}
+                            onChange={this.props.handleChange}
                         />
                     </div>
                     <div className="formRow">
@@ -98,19 +55,16 @@ class FlightForm extends Component {
                             id="datePickerId"
                             name='outboundDate'
                             required
-                            // placeholder={date}
-                            // fieldName="outboundDate"
-                            value={this.state.outboundDate}
-                            onChange={this.handleChange}
+                            value={this.props.outboundDate}
+                            onChange={this.props.handleChange}
                         />
                         <label>Return date</label>
                         <input
                             type='date'
                             name='inboundDate'
                             required
-                            // fieldName="intboundDate"
-                            value={this.state.intboundDate}
-                            onChange={this.handleChange}
+                            value={this.props.intboundDate}
+                            onChange={this.props.handleChange}
                         />
                     </div>
                     <div className="formRow">
@@ -118,8 +72,8 @@ class FlightForm extends Component {
                         <select
                             type="text"
                             name="cabinClass"
-                            value={this.state.cabinClass}
-                            onChange={this.handleChange}
+                            value={this.props.cabinClass}
+                            onChange={this.props.handleChange}
                         >
                             <option value="economy"> Economy </option>
                             <option value="premiumeconomy"> Premium Economy </option>
@@ -130,8 +84,8 @@ class FlightForm extends Component {
                         <select
                             type="text"
                             name="adults"
-                            value={this.state.adults}
-                            onChange={this.handleChange}
+                            value={this.props.adults}
+                            onChange={this.props.handleChange}
                         >
                             <option value="1"> 1 </option>
                             <option value="2"> 2 </option>
@@ -146,7 +100,6 @@ class FlightForm extends Component {
                         </button>
                     </div>
                 </form>
-                {/* <FlightCard /> */}
             </div>
         );
     }

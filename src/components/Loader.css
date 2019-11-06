@@ -1,0 +1,37 @@
+#loader {
+    height: 100%;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+#loadingText {
+    margin: auto;
+}
+
+#loaderAnimation {
+    position: absolute;
+    top: calc(90vh/2 - 50px);
+    left: calc(90vw/2 - 50px);
+    border: 16px solid #b1ebac8e;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    z-index: 2000;
+    -webkit-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
