@@ -1,6 +1,6 @@
 .flightCardContainer {
     margin: 1% 0.5%;
-    /* border: 1px gray solid; */
+    font: 1em sans-serif;
     border-radius: 45%;
     background-image: radial-gradient(rgba(235, 135, 160, 0.603), rgba(255, 255, 255, 0.507), rgba(42, 150, 96, 0.568));
     box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
@@ -34,6 +34,7 @@ h2, .arrow {
   .flightCardGetPrice {
     display: flex;
     flex-wrap: wrap;
+    font-size: 80%;
   }
   
   .flightCardDate {

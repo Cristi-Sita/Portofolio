@@ -1,7 +1,7 @@
 .flightFormContainer {
     margin: 1%;
     border-radius: 5px;
-    background: linear-gradient(rgba(44, 42, 150, 0.726), rgba(42, 150, 96, 0.74));
+    background: linear-gradient(rgba(44, 42, 150, 0.486), rgba(42, 150, 96, 0.493));
     color: rgb(0, 0, 0);
     box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
     /* transition: all 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95); */
@@ -15,6 +15,10 @@
 
 input[type="date"]::-webkit-inner-spin-button { 
     display: none;
+    border: none;
+    border-radius: 5px;
+    max-width: 50%;
+
 }
 
 .flightForm {
@@ -29,16 +33,49 @@ input[type="date"]::-webkit-inner-spin-button {
 input, select, button {
       font-size: 110%;
       margin-bottom: 3%;
+      box-sizing: border-box;
+      height: 30px;
       padding: 0;
 }
 
-input {
-    width: 30%;
+.inputText,
+.dropDownSelect {
+    max-width: 60%;
+    box-sizing: content-box;
+    align-self: center;
+    border: none;
+    border-radius: 3px;
+    background-color: cornsilk;
 }
 
 .formRow {
-    max-width: 95%;
+    max-width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
     margin: auto;
+}
+
+label {
+    align-self: center;
+}
+
+.dropDown,
+.textInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    max-width: 50%;
+}
+
+.inputText {
+    max-width: 50%;
+    padding-left: 5px;
+}
+
+.dropDown {
+    margin-left: 2%;
+    box-sizing: border-box;
+    min-width: 50%;
 }

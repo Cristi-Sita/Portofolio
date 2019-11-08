@@ -7,6 +7,8 @@ import './components/FlightForm.css'
 import './components/FlightCard.css'
 import './components/Loader.css'
 import './components/img/baloon.jpeg'
+import "./components/Responsive.css"
+
 
 class App extends Component {
   constructor(props) {
@@ -110,8 +112,8 @@ class App extends Component {
 
   render() {
     return <div className="mainContainer" >
-      <img src={require('./components/img/baloon.jpeg')} alt="hot air baloon" />
-      <header className="App-header">
+      <img className="centralImage" src={require('./components/img/baloon.jpeg')} alt="hot air baloon" />
+      <header className="appHeader">
         <h1 className="pageTitle">Flights search engine</h1>
         <p className="powered">Powered by Skyscanner</p>
       </header>
@@ -139,8 +141,9 @@ class App extends Component {
             originPlace={this.state.originPlace}
             handleChange={this.handleChange} />
           {this.state.loading === true ? <div id="loader">
+            <div id="loaderAnimation">
+            </div>
             <h3 id="loadingText">Loading...</h3>
-            <div id="loaderAnimation"></div>
           </div> :
             <FlightCard price={this.state.price}
               itineraries={this.state.itineraries}

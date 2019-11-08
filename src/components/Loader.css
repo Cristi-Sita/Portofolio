@@ -7,6 +7,9 @@
 }
 
 #loadingText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     margin: auto;
 }
 
@@ -14,9 +17,9 @@
     position: absolute;
     top: calc(90vh/2 - 50px);
     left: calc(90vw/2 - 50px);
-    border: 16px solid #b1ebac8e;
+    border: 16px solid #acb8ab8e;
     border-radius: 50%;
-    border-top: 16px solid #3498db;
+    border-top: 16px solid #054d7c;
     width: 100px;
     height: 100px;
     margin: auto;

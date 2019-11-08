@@ -1,0 +1,56 @@
+
+@media only screen and (max-width: 736px) {
+    .historyOfSearch {
+      display: none;
+    }
+    
+    .mainContent {
+      flex-direction: row-reverse;
+      min-width: 100%;
+    }
+    
+    .middleContainer {
+      min-width: 75%;
+      margin-left: 0.5%;
+      margin-right: 0.5%;
+    }
+    
+    .flightCardGetPrice {
+      font-size: 70%;
+    }
+    
+    .forecastWheather {
+      max-width: 33%;
+    }
+    
+    @media only screen and (max-width: 568px) {
+      .forecastWheather {
+        display: none;
+      }
+    
+      .middleContainer {
+        min-width: 99%;
+      }
+    
+      .centralImage {
+        display: none;
+      }
+      /* @media only screen and (max-width: 446px) { */
+        .mainContainer {
+          font-size: 75%;
+          }
+        
+          .appHeader {
+            border-radius: 10px;
+          }
+    
+        .pageTitle {
+          align-self: self-start;
+        }
+    
+        .mainContent {
+          background-image: linear-gradient(100deg, #22c1c3, #fdbb2d);
+          border-radius: 10px;
+        }
+      }
+    }
