@@ -201,10 +201,10 @@ app.put("/items/:id", function (req, res) {
 });
 
 app.delete("/items/:id", function (req, res) {
-    connection.query("DELETE FROM flightsearch WHERE id=?", req.params.id,
+    connection.query("DELETE FROM flightsearch WHERE id = LAST_INSERT_ID();",
         function (error, res) {
             if (error) throw error;
-            res.json("results.deletedID")
+            res.json(res.affectedRows)
         }
     );
 });
