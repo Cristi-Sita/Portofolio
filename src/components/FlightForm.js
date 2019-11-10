@@ -54,9 +54,10 @@ class FlightForm extends Component {
                             />
                         </div>
                     </div>
-                    <div className="formRow">
+                    <div className="formRow ">
                         <h3>Departure date</h3>
                         <input
+                            className='textInput'
                             type='date'
                             id="datePickerId"
                             name='outboundDate'
@@ -73,10 +74,11 @@ class FlightForm extends Component {
                             onChange={this.props.handleChange}
                         />
                     </div>
-                    <div className="formRow">
+                    <div className="formRow lastRow">
                         <div className="dropDown">
                             <h3>Cabin Class</h3>
                             <select
+                                className="dropDownSelect"
                                 type="text"
                                 name="cabinClass"
                                 value={this.props.cabinClass}
@@ -90,6 +92,7 @@ class FlightForm extends Component {
                         <div className="dropDown">
                             <h3>Passenger Count</h3>
                             <select
+                                className="dropDownSelect"
                                 type="text"
                                 name="adults"
                                 value={this.props.adults}
@@ -104,6 +107,7 @@ class FlightForm extends Component {
                     </div>
                     <div className="subButton">
                         <button
+                            className="myButton"
                             type="submit"
                         >
                             Search

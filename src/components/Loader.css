@@ -8,18 +8,18 @@
 
 #loadingText {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: calc(90vh/2 + 50px);
+    left: calc(90vw/2 + 20px);
     margin: auto;
 }
 
 #loaderAnimation {
     position: absolute;
-    top: calc(90vh/2 - 50px);
-    left: calc(90vw/2 - 50px);
-    border: 16px solid #acb8ab8e;
+    top: calc(90vh/2);
+    left: calc(90vw/2);
+    border: 9px dashed #acb8ab8e;
     border-radius: 50%;
-    border-top: 16px solid #054d7c;
+    border-top: 9px solid #054d7c;
     width: 100px;
     height: 100px;
     margin: auto;

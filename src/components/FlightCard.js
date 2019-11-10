@@ -26,21 +26,47 @@ class FlightCard extends Component {
                         key={(elemn.Price * Math.random()).toString()}
                         className="flightCardContainer">
                         <div className="flightCardRoute">
-                            <h4 className="arrow">From  </h4>
                             <h2> {this.props.flightsParams.origin}</h2>
-                            <h4 className="arrow">  fligh to  </h4>
+                            <h4 className="arrow">
+                                <svg width="100px"
+                                    height="20px"
+                                    viewBox="0 0 100 20"
+                                    version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g stroke="none"
+                                        strokeWidth="1"
+                                        fill="none">
+                                        <g transform="translate(5.000000, 5.000000)">
+                                            <path d="M0.5,5 L79,5"
+                                                stroke="#666666"
+                                                strokeWidth="2"
+                                                strokeLinecap="square">
+                                            </path><polygon
+                                                fill="#666666"
+                                                transform="translate(85.000000, 5.000000) rotate(90.000000) translate(-85.000000, -5.000000) "
+                                                points="85 0 90 10 80 10">
+                                            </polygon>
+                                        </g>
+                                        <circle stroke="#666666"
+                                            strokeWidth="2"
+                                            fill="#FFFFFF"
+                                            cx="50"
+                                            cy="10"
+                                            r="3">
+                                        </circle></g></svg>
+                            </h4>
                             <h2>{this.props.flightsParams.destination}</h2>
                         </div>
 
                         <div className="flightCardGetPrice">
                             <div className='flightCardDateContainer'>
-                                <h3 className="flightCardDateH noMarginTopTag">
+                                <h2 className="flightCardDateH noMarginTopTag">
                                     <span className="flightCardDate">Departure date: </span>
                                     {this.props.flightsParams.outboundDate}
                                     <br />
                                     <span className="flightCardDate">return date: </span>
                                     {this.props.flightsParams.inboundDate}
-                                </h3>
+                                </h2>
                             </div>
                             <div className="priceContainer">
                                 <h2 className="priceStyle noMarginTopTag">Price: {elemn.Price + '  \u20AC'}

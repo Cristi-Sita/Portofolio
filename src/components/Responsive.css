@@ -1,4 +1,17 @@
 
+@media only screen and (max-width: 1024px) {
+  .flightCardGetPrice,
+  .flightFormContainer {
+    font-size: x-small;
+  }
+  
+  .airplaneImage {
+    display: none;
+  }
+
+  .airplaneImage::before {
+display: none;
+  }
 @media only screen and (max-width: 736px) {
     .historyOfSearch {
       display: none;
@@ -54,3 +67,4 @@
         }
       }
     }
+  }

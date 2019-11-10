@@ -1,7 +1,7 @@
 .flightFormContainer {
     margin: 1%;
     border-radius: 5px;
-    background: linear-gradient(rgba(44, 42, 150, 0.486), rgba(42, 150, 96, 0.493));
+    background: linear-gradient(rgb(44, 42, 150, 0.5), rgba(135, 206, 235, 0.5));
     color: rgb(0, 0, 0);
     box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
     /* transition: all 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95); */
@@ -30,7 +30,7 @@ input[type="date"]::-webkit-inner-spin-button {
     font-size: 110%;
 }
 
-input, select, button {
+input, select {
       font-size: 110%;
       margin-bottom: 3%;
       box-sizing: border-box;
@@ -55,6 +55,7 @@ input, select, button {
     justify-content: space-evenly;
     align-self: center;
     margin: auto;
+    place-items: flex-end;
 }
 
 label {
@@ -78,4 +79,33 @@ label {
     margin-left: 2%;
     box-sizing: border-box;
     min-width: 50%;
+}
+
+.lastRow {
+    margin: 0;
+    width: 90%;
+}
+
+.myButton {
+	box-shadow: 3px 11px 15px -9px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:11px;
+	display:inline-block;
+	cursor:pointer;
+	/* color:#ffffff; */
+	font-family:Arial;
+	/* font-size:15px; */
+	font-weight:bold;
+	padding:13px 2px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
 }

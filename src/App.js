@@ -6,9 +6,13 @@ import './App.css';
 import './components/FlightForm.css'
 import './components/FlightCard.css'
 import './components/Loader.css'
-import './components/img/baloon.jpeg'
 import "./components/Responsive.css"
+import './components/img/baloon.jpeg'
+import './components/img/commercialAirplane.jpg'
+import './components/img/commercialAirplane1.jpg'
+import './components/img/commercialAirplane2.jpg'
 
+const slide = ['commercialAirplane1.jpg', 'baloon.jpeg', 'commercialAirplane.jpg', 'commercialAirplane2.jpg'];
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +39,7 @@ class App extends Component {
       country: "RO",
       currency: "EUR",
       locale: "en-US",
+      slide: slide,
       loading: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -71,7 +76,7 @@ class App extends Component {
     })
       .then(response => {
         this.setState({ loading: true })
-        console.log(response)
+        // console.log(response)
         setTimeout(() => this.loadItems(), 14000)
       })
       .catch(error => console.log(error));
@@ -81,16 +86,26 @@ class App extends Component {
     return axios.get("http://localhost:8080/items")
       .then(response => {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
-          console.log(response, "response.data[0].wheatherorigin.cnt");
+          console.log(response);
           return setTimeout(() => this.loadItems(), 2000)
-        };
+        }
+        // else if (i === 4) {
+        //   return axios.delete("http://localhost:8080/items/:id")
+        //     .then(response => {
+        //       console.log(response)
+        //       setTimeout(() => this.loadItems(), 2000)
+        //     })
+        // }
         this.setState({ loading: false })
         this.setState({ items: response.data });
         this.setState({ cities: sliceArr(response.data) })
-        this.setState({ wheatherorigin: sliceArr(JSON.parse(response.data[0].wheatherorigin).wheathOrigin.list) });
         this.setState({
-          wheatherdestination: sliceArr(JSON.parse(response.data[0].wheatherdestination)
-            .wheathDestination.list)
+          wheatherorigin: [wheath(response.data[0].outboundDate,
+            JSON.parse(response.data[0].wheatherorigin).wheathOrigin.list)]
+        });
+        this.setState({
+          wheatherdestination: [wheath(response.data[0].outboundDate,
+            JSON.parse(response.data[0].wheatherdestination).wheathDestination.list)]
         });
         this.setState({ flightsParams: this.state.items[0] });
         this.setState({ flightsData: JSON.parse(this.state.flightsParams.flightsData) });
@@ -101,9 +116,17 @@ class App extends Component {
             return Number(a.Price) - Number(b.Price);
           })
         });
+        console.log(wheath(this.state.cities[0].outboundDate,
+          JSON.parse(response.data[0].wheatherdestination).wheathDestination.list),
+          wheath(response.data[0].outboundDate,
+            JSON.parse(response.data[0].wheatherorigin).wheathOrigin.list),
+          response.data[0].inboundDate,
+          response.data[0].outboundDate
+        )
       })
-      .then(() => console.log(/*this.state.wheatherdestination, this.state.items[0],*/ this.state.flightsData,
-        this.state.cities[0]))
+      // .then(() => console.log(this.state.cities, /*this.state.items[0], this.state.flightsData*/
+      //   this.state.wheatherorigin))
+      .catch((error) => console.log(error))
   }
 
   componentDidMount() {
@@ -112,7 +135,11 @@ class App extends Component {
 
   render() {
     return <div className="mainContainer" >
-      <img className="centralImage" src={require('./components/img/baloon.jpeg')} alt="hot air baloon" />
+      <img className="bkgImage"
+        src={require(`./components/img/${slide[
+          Math.floor(slide.length * Math.random())
+        ]}`)}
+        alt="flying objects" />
       <header className="appHeader">
         <h1 className="pageTitle">Flights search engine</h1>
         <p className="powered">Powered by Skyscanner</p>
@@ -131,8 +158,8 @@ class App extends Component {
             <div
               key={item.id}
               className="historyCard">
-              <h4 className="noMarginTopTag">{item.origin} to {item.destination}</h4>
-              <h5 className="noMarginTopTag">{item.outboundDate} return on: {item.inboundDate}</h5>
+              <h4 className="noMarginTop">{item.origin} to {item.destination}</h4>
+              <h5 className="noMarginTop">{item.outboundDate} return on: {item.inboundDate}</h5>
             </div>
           ))}
         </div>
@@ -158,26 +185,30 @@ class App extends Component {
               <div
                 key={(day.dt * Math.random()).toString()}
                 className="wheathCard">
-                {this.state.cities.map(city => (<h3
-                  className="noMarginTopTag"
-                  key={(city.id * Math.random()).toString()}>{city.origin}</h3>))}
-                {this.state.cities.map(city => (<h4 className="noMarginTopTag">{city.outboundDate}</h4>))}
-                <h5 className="noMarginTopTag">Temp max: {Math.round(day.temp.max)} &#8451;</h5>
-                <h5 className="noMarginTopTag">Temp min: {Math.round(day.temp.min)} &#8451;</h5>
-                <h5 className="noMarginTopTag capitalizes">{day.weather[0].description}</h5>
+                {this.state.cities.map(city => (<h2
+                  className="noMarginTop"
+                  key={(city.id * Math.random()).toString()}>{city.origin}</h2>))}
+                {this.state.cities.map(city => (<h4
+                  key={this.state.cities[0].id}
+                  className="noMarginTop">{city.outboundDate}</h4>))}
+                <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
+                <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
+                <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
               </div>
             ))}
             {this.state.wheatherdestination.map(day => (
               <div
                 key={(day.dt * Math.random()).toString()}
                 className="wheathCard">
-                {this.state.cities.map(city => (<h3
-                  className="noMarginTopTag"
-                  key={(city.id * Math.random()).toString()}>{city.destination}</h3>))}
-                {this.state.cities.map(city => (<h4 className="noMarginTopTag">{city.inboundDate}</h4>))}
-                <h5 className="noMarginTopTag">Temp max: {Math.round(day.temp.max)} &#8451;</h5>
-                <h5 className="noMarginTopTag">Temp min: {Math.round(day.temp.min)} &#8451;</h5>
-                <h5 className="noMarginTopTag capitalizes">{day.weather[0].description}</h5>
+                {this.state.cities.map(city => (<h2
+                  className="noMarginTop"
+                  key={(city.id * Math.random()).toString()}>{city.destination}</h2>))}
+                {this.state.cities.map(city => (<h4
+                  key={this.state.cities[0].id.toString()}
+                  className="noMarginTop">{city.outboundDate}</h4>))}
+                <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
+                <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
+                <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
               </div>
             ))}
           </div>
@@ -187,23 +218,35 @@ class App extends Component {
   };
 };
 
-// const wheath = (wheat) => {
-//   return wheat.slice(0, 1);
-// }
+const wheath = (date, forecast16D) => {
+  let d = date[0]
+  let someDay = new Date(d).getTime();
+  // console.log(z, date[0], date, someDay);
+  return forecast16D.find(item => {
+    let d2 = item.dt * 1000;
+    let someDayW = new Date(d2).getTime();
+    if (someDay <= someDayW) {
+      // console.log(someDayW, item);
+      return item;
+    };
+  })
+}
 
 const sliceArr = (items) => {
   return items.slice(0, 1);
 }
 
 const concatItineraries = (elemns) => {
-  if (elemns.length === 0) return alert("Something is wrong!")
+  let arr = elemns[0].PricingOptions;
+  if (elemns.length === 0) return alert("Something is wrong! Verify if destination is type corectly! If yes try again.")
   else if (elemns.length === 1) {
     return elemns[0].PricingOptions;
   }
-  else if (elemns.length === 2) {
-    return elemns[0].PricingOptions.concat(elemns[1].PricingOptions);
+  for (let i = 1; i < elemns.length; i++) {
+    arr = arr.concat(elemns[i].PricingOptions);
+    // console.log(arr, typeof (elemns[i]), elemns[i].PricingOptions);
   }
-  return elemns[0].PricingOptions.concat(elemns[1].PricingOptions).concat(elemns[2].PricingOptions);
+  return arr;
 }
 
 export default App;
