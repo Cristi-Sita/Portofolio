@@ -1,10 +1,10 @@
 .flightCardContainer {
     margin: 1% 0.5%;
-    border-radius: 45%;
+    border-radius: 43%;
     background-image: radial-gradient(rgba(42, 150, 96, 0.5), rgba(114, 138, 186, 0.8), 
     rgba(192, 1, 250, 0.3));
-    box-shadow: 2px 2px 4px rgba(48, 42, 42, 0.9);
-    transition: all 1.5s cubic-bezier(0.005, 0.35, 0.55, 0.95) 1.25s;
+    box-shadow: 0 2px 4px 1px rgba(48, 42, 42, 0.9);
+    transition: all 1.5s linear 1.25s;
   }
   
 .flightCardContainer:hover {

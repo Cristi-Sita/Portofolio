@@ -57,9 +57,8 @@ class FlightForm extends Component {
                     <div className="formRow ">
                         <h3>Departure date</h3>
                         <input
-                            className='textInput'
+                            className='textInput dateBox'
                             type='date'
-                            id="datePickerId"
                             name='outboundDate'
                             required
                             value={this.props.outboundDate}
@@ -67,6 +66,7 @@ class FlightForm extends Component {
                         />
                         <h3>Return date</h3>
                         <input
+                            className='textInput dateBox'
                             type='date'
                             name='inboundDate'
                             required

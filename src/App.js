@@ -13,6 +13,8 @@ import './components/img/commercialAirplane1.jpg'
 import './components/img/commercialAirplane2.jpg'
 
 const slide = ['commercialAirplane1.jpg', 'baloon.jpeg', 'commercialAirplane.jpg', 'commercialAirplane2.jpg'];
+let i = 0;
+let now = new Date().getTime();
 
 class App extends Component {
   constructor(props) {
@@ -87,15 +89,18 @@ class App extends Component {
       .then(response => {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
+          i++;
+          if (i === 4) {
+            return axios.delete("http://localhost:8080/items/id")
+              .then(response => {
+                i = 0;
+                console.log(response, "delete")
+                setTimeout(() => this.loadItems(), 2000)
+              })
+              .then(() => alert('Something is wrong! Check if the destination is correct, if so, try again later!'))
+          }
           return setTimeout(() => this.loadItems(), 2000)
         }
-        // else if (i === 4) {
-        //   return axios.delete("http://localhost:8080/items/:id")
-        //     .then(response => {
-        //       console.log(response)
-        //       setTimeout(() => this.loadItems(), 2000)
-        //     })
-        // }
         this.setState({ loading: false })
         this.setState({ items: response.data });
         this.setState({ cities: sliceArr(response.data) })
@@ -116,12 +121,15 @@ class App extends Component {
             return Number(a.Price) - Number(b.Price);
           })
         });
-        console.log(wheath(this.state.cities[0].outboundDate,
-          JSON.parse(response.data[0].wheatherdestination).wheathDestination.list),
-          wheath(response.data[0].outboundDate,
-            JSON.parse(response.data[0].wheatherorigin).wheathOrigin.list),
-          response.data[0].inboundDate,
-          response.data[0].outboundDate
+        console.log(wheath(response.data[0].outboundDate,
+          JSON.parse(response.data[0].wheatherorigin).wheathOrigin.list),
+          this.state.wheatherorigin
+          //   wheath(response.data[0].outboundDate,
+          //     JSON.parse(response.data[0].wheatherorigin).wheathOrigin.list),
+          //   response.data[0].inboundDate,
+          //   response.data[0].outboundDate,
+          //   this.state.cities[0].outboundDate,
+          //   JSON.parse(response.data[0].wheatherdestination).wheathDestination.list
         )
       })
       // .then(() => console.log(this.state.cities, /*this.state.items[0], this.state.flightsData*/
@@ -182,34 +190,38 @@ class App extends Component {
           <div className="sideImage wheatherImage"></div>
           <div>
             {this.state.wheatherorigin.map(day => (
-              <div
-                key={(day.dt * Math.random()).toString()}
-                className="wheathCard">
-                {this.state.cities.map(city => (<h2
-                  className="noMarginTop"
-                  key={(city.id * Math.random()).toString()}>{city.origin}</h2>))}
-                {this.state.cities.map(city => (<h4
-                  key={this.state.cities[0].id}
-                  className="noMarginTop">{city.outboundDate}</h4>))}
-                <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
-                <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
-                <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
-              </div>
+              typeof (day) === "undefined" ? <h1>Can't display wheather.
+               But doesn't matter because the weather is unpredictable.</h1> :
+                <div
+                  key={(day.dt * Math.random()).toString()}
+                  className="wheathCard">
+                  {this.state.cities.map(city => (<h2
+                    className="noMarginTop"
+                    key={(city.id * Math.random()).toString()}>{city.origin}</h2>))}
+                  {this.state.cities.map(city => (<h4
+                    key={this.state.cities[0].id}
+                    className="noMarginTop">{city.outboundDate}</h4>))}
+                  <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
+                  <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
+                  <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
+                </div>
             ))}
             {this.state.wheatherdestination.map(day => (
-              <div
-                key={(day.dt * Math.random()).toString()}
-                className="wheathCard">
-                {this.state.cities.map(city => (<h2
-                  className="noMarginTop"
-                  key={(city.id * Math.random()).toString()}>{city.destination}</h2>))}
-                {this.state.cities.map(city => (<h4
-                  key={this.state.cities[0].id.toString()}
-                  className="noMarginTop">{city.outboundDate}</h4>))}
-                <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
-                <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
-                <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
-              </div>
+              typeof (day) === "undefined" ? <h1>Can't display wheather.
+              But doesn't matter because the weather is unpredictable.</h1> :
+                <div
+                  key={(day.dt * Math.random()).toString()}
+                  className="wheathCard">
+                  {this.state.cities.map(city => (<h2
+                    className="noMarginTop"
+                    key={(city.id * Math.random()).toString()}>{city.destination}</h2>))}
+                  {this.state.cities.map(city => (<h4
+                    key={this.state.cities[0].id.toString()}
+                    className="noMarginTop">{city.outboundDate}</h4>))}
+                  <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
+                  <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
+                  <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
+                </div>
             ))}
           </div>
         </div>
@@ -219,15 +231,17 @@ class App extends Component {
 };
 
 const wheath = (date, forecast16D) => {
-  let d = date[0]
-  let someDay = new Date(d).getTime();
-  // console.log(z, date[0], date, someDay);
-  return forecast16D.find(item => {
-    let d2 = item.dt * 1000;
-    let someDayW = new Date(d2).getTime();
+  // let d = date[0]
+  let someDay = new Date(date);
+  return forecast16D.find(day => {
+    let d2 = day.dt * 1000;
+    let someDayW = new Date(d2);
+    const g = () => { if (someDay >= someDayW) return console.log("yes") };
+    g();
+    // console.log(someDay, someDayW);
     if (someDay <= someDayW) {
-      // console.log(someDayW, item);
-      return item;
+      // console.log(day);
+      return day;
     };
   })
 }

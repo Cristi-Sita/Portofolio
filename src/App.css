@@ -74,7 +74,7 @@ position: absolute;
 top: 11.5vh;
 width: 100vw;
 z-index: -10;
-text-shadow: 1px 1px 2px rgba(48, 42, 42, 0.9);
+text-shadow: 1px 1px 1px rgba(48, 42, 42, 0.9);
 }
 
 img {
@@ -131,6 +131,7 @@ img {
   background-image: url("./components/img/commercialAirplane.jpg");
   background-size: cover;
   background-position: center center;
+  background-repeat: no-repeat;
   content: "";
   display: block;
   height: 85%;
@@ -145,8 +146,9 @@ img {
 
 .historyCard {
   margin-bottom: 8%;
-  color: rgb(50, 15, 61);
+  color: rgb(128, 45, 153);
   border: 1px solid rgb(209, 204, 204);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
 }
 
 .forecastWheather {
