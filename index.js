@@ -29,7 +29,7 @@ let flightsData,
     // inboundDate = "2019-10-20",  //  Examples of requested parameters for Skyscanner endpoint (these will be receive 
     // cabinClass = "economy",      //  from from)
     children = "0",
-    infants = "0",                  //  Harcoded params, but this can be added on from
+    infants = "0",                  //  Harcoded params, but this can be added on form
     groupPricing = "false";
 // originPlace = "CLJ-sky",
 // outboundDate = "2019-10-14",
@@ -42,7 +42,7 @@ let flightsData,
 const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, children, infants, groupPricing, originPlace,
     outboundDate, adults) => {
 
-        // Request Skyscanner code for destination place
+    // Request Skyscanner code for destination place
 
     return citySkyCodeReq(zone, currency, lang, city)
         .then((citySkyCode) => {
@@ -111,9 +111,9 @@ const flights = async function detailedFlightsData(zone, currency, lang, city, i
         insertWhDestination = JSON.stringify({
             wheathDestination
         });
-        //
-        // All responses from API's are loaded in MySQL data base
-        //
+    //
+    // All responses from API's are loaded in MySQL data base
+    //
     connection.query('UPDATE flightsearch SET flightsData = ?, wheatherorigin = ?, wheatherdestination =? WHERE id = ?',
         [insertData, insertWhOrigin, insertWhDestination, insertID],
         function (err, result) {
