@@ -12,7 +12,7 @@ const citySkyCodeReq = require("./findCitySkyCode"),
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Naiceface19!',
+    password: '******', // your pass
     database: 'flightsearch'
 });
 
@@ -26,24 +26,33 @@ let flightsData,
     // currency = "EUR",
     // lang = "en-US",
     // city = "Amsterdam",
-    // inboundDate = "2019-10-20",
-    // cabinClass = "economy",
+    // inboundDate = "2019-10-20",  //  Examples of requested parameters for Skyscanner endpoint (these will be receive 
+    // cabinClass = "economy",      //  from from)
     children = "0",
-    infants = "0",
+    infants = "0",                  //  Harcoded params, but this can be added on from
     groupPricing = "false";
 // originPlace = "CLJ-sky",
 // outboundDate = "2019-10-14",
 // adults = "1";
 
+//
+// This function do all jobs with external API's
+//
 
 const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, children, infants, groupPricing, originPlace,
     outboundDate, adults) => {
+
+        // Request Skyscanner code for destination place
+
     return citySkyCodeReq(zone, currency, lang, city)
         .then((citySkyCode) => {
             destinationCode = citySkyCode.CityId;
             // console.log(destinationCode);
             return destinationCode;
         })
+        //
+        // With all Sky-code & needed params get a key for poll session 
+        //
         .then(responseKey => skyKeySession(inboundDate, cabinClass, children, infants, groupPricing, zone, currency, lang,
             originPlace, destinationCode, outboundDate, adults)
             .then(skyKey => {
@@ -52,6 +61,9 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
                 return keySession;
             })
         )
+        //   
+        // Get flights data  based on previouse key  
+        //
         .then(flightsResult => flightsSession(keySession)
             .then(flightsResponseData => {
                 flightsData = flightsResponseData;
@@ -63,7 +75,9 @@ const flightsResponse = (zone, currency, lang, city, inboundDate, cabinClass, ch
             console.log(error)
         })
 };
-
+//
+// Async function to deal with rest of the work for which this api was made
+//
 const flights = async function detailedFlightsData(zone, currency, lang, city, inboundDate, cabinClass, children,
     infants, groupPricing, originPlace, outboundDate, adults, insertID) {
 
@@ -71,8 +85,15 @@ const flights = async function detailedFlightsData(zone, currency, lang, city, i
         infants, groupPricing, originPlace, outboundDate, adults);
 
     let responseFlightsData = await flightsDataResponse;
+    //
+    // Obtain name from origin & destination locations (needed for more accuracy in Open Wheather API)
+    //
     let originName = await responseFlightsData.Query.OriginPlace;
     let destinationName = responseFlightsData.Query.DestinationPlace;
+    //
+    // Call wheather module for both places (the purpose of this is only to inform users about 
+    // what the weather might be like on the day of departure)
+    //
     let wheatherOrigin = cityNameW(responseFlightsData.Places, originName);
     let wheatherDestination = cityNameW(responseFlightsData.Places, destinationName);
 
@@ -81,7 +102,6 @@ const flights = async function detailedFlightsData(zone, currency, lang, city, i
     let wheathDestination = await predictedWheather(wheatherDestination);
     console.log(wheathOrigin.cnt);
     // console.log(wheathDestination);
-    // sortFlightsData = (responseFlightsData)
     let insertData = JSON.stringify({
         responseFlightsData
     }),
@@ -91,6 +111,9 @@ const flights = async function detailedFlightsData(zone, currency, lang, city, i
         insertWhDestination = JSON.stringify({
             wheathDestination
         });
+        //
+        // All responses from API's are loaded in MySQL data base
+        //
     connection.query('UPDATE flightsearch SET flightsData = ?, wheatherorigin = ?, wheatherdestination =? WHERE id = ?',
         [insertData, insertWhOrigin, insertWhDestination, insertID],
         function (err, result) {
@@ -100,7 +123,9 @@ const flights = async function detailedFlightsData(zone, currency, lang, city, i
     // console.log(responseFlightsData.Query);
     return responseFlightsData;
 };
-
+//
+// This fct will find city name in Sky response (better handle with Open Wheather in diferent languages)
+//
 function cityNameW(locationArray, code) {
     if (code == 1780) return 'Constanta';
     const item = locationArray.find(item => {
@@ -114,7 +139,9 @@ function cityNameW(locationArray, code) {
     if (item.Type == "City") return item.Name;
     return cityNameW(locationArray, item.ParentId)
 };
-
+//
+// Get the last 5 entries in data base
+//
 app.get('/items', function (req, res) {
     connection.query('SELECT * FROM flightsearch ORDER BY id DESC LIMIT 5', function (
         error,
@@ -126,7 +153,9 @@ app.get('/items', function (req, res) {
         // console.log("Ok!");
     })
 });
-
+//
+// Insert few of the params, from Front-end Form, into db & call the main function
+//
 app.post("/items", function (req, res) {
     // console.log(req.body);
     let items = req.body,
@@ -148,11 +177,11 @@ app.post("/items", function (req, res) {
                 if (elemn.originPlace === "Bucuresti") {
                     return originPlace = "OTP-sky"
                 }
-                else if (elemn.originPlace === "Cluj Napoca") {
-                    return "CLJ-sky"
-                }
-                else if (elemn.originPlace === "Constanta") {
-                    return originPlace = "CND-sky"
+                else if (elemn.originPlace === "Cluj Napoca") { //
+                    return "CLJ-sky"                            // Harcoded few options from my country
+                }                                               // (Can bypass this but it's necessary to call findCitySkyCode
+                else if (elemn.originPlace === "Constanta") {   // twice: one for origin & one for destination)
+                    return originPlace = "CND-sky"              //
                 }
                 else if (elemn.originPlace === "Timisoara") {
                     return originPlace = "TSR-sky"
@@ -168,7 +197,9 @@ app.post("/items", function (req, res) {
                 };
                 return elemn.destinationPlace
             };
-
+            //
+            // Prepare params received from Form & call async fct
+            //
             let originPlace = originCod(items),
                 city = destination(items),
                 outboundDate = items.outboundDate,
@@ -189,17 +220,19 @@ app.post("/items", function (req, res) {
 app.put("/items/:id", function (req, res) {
     let updateItem = req.body;
     connection.query("UPDATE flightsearch SET ? WHERE id=?", [
-        // req.body,
-        updateItem,
-        req.params.id
-    ],
+        updateItem,                                             //
+        req.params.id                                           // Update db (unused now maybe in the future)
+    ],                                                          //
         function (error, res) {
             if (error) throw error;
             res.json()
         }
     );
 });
-
+//
+// In case of error or incomplete response in db, from last search, delete this (request it's made automatic from
+// front-end in case of error)
+//
 app.delete("/items/:id", function (req, res) {
     connection.query("DELETE FROM flightsearch WHERE id = LAST_INSERT_ID();",
         function (error, results) {
