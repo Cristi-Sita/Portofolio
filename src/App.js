@@ -14,7 +14,6 @@ import './components/img/commercialAirplane2.jpg'
 
 const slide = ['commercialAirplane1.jpg', 'baloon.jpeg', 'commercialAirplane.jpg', 'commercialAirplane2.jpg'];
 let i = 0;
-let now = new Date().getTime();
 
 class App extends Component {
   constructor(props) {
@@ -90,7 +89,7 @@ class App extends Component {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
           i++;
-          if (i === 4) {
+          if (i === 6) {
             return axios.delete("http://localhost:8080/items/id")
               .then(response => {
                 i = 0;
@@ -231,18 +230,17 @@ class App extends Component {
 };
 
 const wheath = (date, forecast16D) => {
-  // let d = date[0]
   let someDay = new Date(date);
   return forecast16D.find(day => {
     let d2 = day.dt * 1000;
     let someDayW = new Date(d2);
-    const g = () => { if (someDay >= someDayW) return console.log("yes") };
-    g();
+    // const g = () => { if (someDay >= someDayW) return console.log("yes") };
+    // g();
     // console.log(someDay, someDayW);
     if (someDay <= someDayW) {
-      // console.log(day);
       return day;
     };
+    return day;
   })
 }
 
