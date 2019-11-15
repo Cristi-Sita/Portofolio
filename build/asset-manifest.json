@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.719c6ae2.chunk.css",
+    "main.js": "/static/js/main.d420f0f7.chunk.js",
+    "main.js.map": "/static/js/main.d420f0f7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e89362ac.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e89362ac.js.map",
+    "static/js/2.25dd8399.chunk.js": "/static/js/2.25dd8399.chunk.js",
+    "static/js/2.25dd8399.chunk.js.map": "/static/js/2.25dd8399.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.8517ff787de50deb9ab5eb4906a20094.js": "/precache-manifest.8517ff787de50deb9ab5eb4906a20094.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.719c6ae2.chunk.css.map": "/static/css/main.719c6ae2.chunk.css.map",
+    "static/media/Wheather.jpg": "/static/media/Wheather.cc00747c.jpg",
+    "static/media/baloon.jpeg": "/static/media/baloon.5138af4b.jpeg",
+    "static/media/App.css": "/static/media/commercialAirplane.7c770f8c.jpg",
+    "static/media/commercialAirplane1.jpg": "/static/media/commercialAirplane1.3ac6ac98.jpg",
+    "static/media/commercialAirplane2.jpg": "/static/media/commercialAirplane2.b36362c2.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e89362ac.js",
+    "static/js/2.25dd8399.chunk.js",
+    "static/css/main.719c6ae2.chunk.css",
+    "static/js/main.d420f0f7.chunk.js"
+  ]
+}
