@@ -14,7 +14,6 @@ import './components/img/commercialAirplane2.jpg'
 
 const slide = ['commercialAirplane1.jpg', 'baloon.jpeg', 'commercialAirplane.jpg', 'commercialAirplane2.jpg'];
 let i = 0;
-let now = new Date().getTime();
 
 class App extends Component {
   constructor(props) {
@@ -79,7 +78,7 @@ class App extends Component {
       .then(response => {
         this.setState({ loading: true })
         // console.log(response)
-        setTimeout(() => this.loadItems(), 14000)
+        setTimeout(() => this.loadItems(), 24000)
       })
       .catch(error => console.log(error));
   }
