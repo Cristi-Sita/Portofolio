@@ -6,7 +6,7 @@
     z-index: 1000;
 }
 
-#loadingText {
+.loadingText {
     position: absolute;
     top: calc(90vh/2 + 50px);
     left: calc(90vw/2 + 20px);

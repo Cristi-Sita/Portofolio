@@ -78,7 +78,7 @@ class App extends Component {
       .then(response => {
         this.setState({ loading: true })
         // console.log(response)
-        setTimeout(() => this.loadItems(), 14000)
+        setTimeout(() => this.loadItems(), 12000)
       })
       .catch(error => console.log(error));
   }
@@ -89,7 +89,7 @@ class App extends Component {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
           i++;
-          if (i === 8) {
+          if (i === 12) {
             return axios.delete("http://localhost:8080/items/id")
               .then(response => {
                 i = 0;
@@ -177,7 +177,7 @@ class App extends Component {
           {this.state.loading === true ? <div id="loader">
             <div id="loaderAnimation">
             </div>
-            <h3 id="loadingText">Searching...</h3>
+            <h3 className="loadingText">Searching...</h3>
           </div> :
             <FlightCard price={this.state.price}
               itineraries={this.state.itineraries}
