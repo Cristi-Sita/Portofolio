@@ -64,7 +64,7 @@ class App extends Component {
       country,
       cabinClass } =
       this.state
-    axios.post('http://localhost:8080/items', {
+    axios.post('https://localhost:8080/items', {
       originPlace,
       destinationPlace,
       inboundDate,
@@ -84,13 +84,13 @@ class App extends Component {
   }
 
   loadItems = () => {
-    return axios.get("http://localhost:8080/items")
+    return axios.get("https://localhost:8080/items")
       .then(response => {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
           i++;
           if (i === 8) {
-            return axios.delete("http://localhost:8080/items/id")
+            return axios.delete("https://localhost:8080/items/id")
               .then(response => {
                 i = 0;
                 console.log(response, "delete")
