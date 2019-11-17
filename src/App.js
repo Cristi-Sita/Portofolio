@@ -177,7 +177,7 @@ class App extends Component {
           {this.state.loading === true ? <div id="loader">
             <div id="loaderAnimation">
             </div>
-            <h3 id="loadingText">Loading...</h3>
+            <h3 id="loadingText">Searching...</h3>
           </div> :
             <FlightCard price={this.state.price}
               itineraries={this.state.itineraries}
