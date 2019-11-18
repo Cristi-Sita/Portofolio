@@ -222,7 +222,7 @@ class App extends Component {
                   <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
                 </div>
             ))}
-            <div>
+            <div className="contact">
               <h3>Contact:</h3>
               <h4>cristi_sita@yahoo.com</h4>
             </div>
