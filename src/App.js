@@ -225,6 +225,12 @@ class App extends Component {
             <div className="contact">
               <h3>Contact:</h3>
               <h4>cristi_sita@yahoo.com</h4>
+              <a
+                className="anchorBtn"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://github.com/Cristi-Sita/Portofolio`}
+              >Code</a>
             </div>
           </div>
         </div>
@@ -238,9 +244,6 @@ const wheath = (date, forecast16D) => {
   return forecast16D.find(day => {
     let d2 = day.dt * 1000;
     let someDayW = new Date(d2);
-    // const g = () => { if (someDay >= someDayW) return console.log("yes") };
-    // g();
-    // console.log(someDay, someDayW);
     if (someDay <= someDayW) {
       return day;
     };
