@@ -64,7 +64,7 @@ class App extends Component {
       country,
       cabinClass } =
       this.state
-    axios.post('http://localhost:8080/items', {
+    axios.post('https://flightsearchnodejs.cristisita.now.sh/items', {
       originPlace,
       destinationPlace,
       inboundDate,
@@ -90,7 +90,7 @@ class App extends Component {
           console.log(response);
           i++;
           if (i === 12) {
-            return axios.delete("http://localhost:8080/items/id")
+            return axios.delete("https://flightsearchnodejs.cristisita.now.sh/items/id")
               .then(response => {
                 i = 0;
                 console.log(response, "delete")
