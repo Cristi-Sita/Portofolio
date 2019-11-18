@@ -84,7 +84,7 @@ class App extends Component {
   }
 
   loadItems = () => {
-    return axios.get("https://flightsearchnodejs.cristisita.now.sh/items")
+    return axios.get("https://flightsearchnodejs.cristisita.now.sh")
       .then(response => {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
