@@ -76,4 +76,8 @@ h2, .arrow {
   box-shadow: 0 0 0 white;
   margin: 6px 10px 2px 10px;
 }
-  
+ 
+.gitLink {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}

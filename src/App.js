@@ -226,11 +226,11 @@ class App extends Component {
               <h3>Contact:</h3>
               <h4>cristi_sita@yahoo.com</h4>
               <a
-                className="anchorBtn"
+                className="anchorBtn gitLink"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={`https://github.com/Cristi-Sita/Portofolio`}
-              >Code</a>
+              >GitHub</a>
             </div>
           </div>
         </div>
