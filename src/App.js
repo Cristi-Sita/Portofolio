@@ -64,7 +64,7 @@ class App extends Component {
       country,
       cabinClass } =
       this.state
-    axios.post('https://flightsearchnodejs.cristisita.now.sh/items', {
+    axios.post('https://flightsearchnodejs-ssg2rg6vq.now.sh/items', {
       originPlace,
       destinationPlace,
       inboundDate,
@@ -84,17 +84,17 @@ class App extends Component {
   }
 
   loadItems = () => {
-    return axios.get("https://flightsearchnodejs.cristisita.now.sh/items")
+    return axios.get("https://flightsearchnodejs-ssg2rg6vq.now.sh/items")
       .then(response => {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
           i++;
           if (i === 12) {
-            return axios.delete("https://flightsearchnodejs.cristisita.now.sh/items/id")
+            return axios.delete("https://flightsearchnodejs-ssg2rg6vq.now.sh/items/id")
               .then(response => {
                 i = 0;
                 console.log(response, "delete")
-                setTimeout(() => this.loadItems(), 2000)
+                setTimeout(() => this.loadItems(), 3000)
               })
               .then(() => alert('Something is wrong! Check if the destination is correct, if so, try again later!'))
           }
