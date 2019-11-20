@@ -94,11 +94,11 @@ class App extends Component {
               .then(response => {
                 i = 0;
                 console.log(response, "delete")
-                setTimeout(() => this.loadItems(), 3000)
+                setTimeout(() => this.loadItems(), 2000)
               })
               .then(() => alert('Something is wrong! Check if the destination is correct, if so, try again later!'))
           }
-          return setTimeout(() => this.loadItems(), 2000)
+          return setTimeout(() => this.loadItems(), 3000)
         }
         this.setState({ loading: false })
         this.setState({ items: response.data });
@@ -263,7 +263,6 @@ const concatItineraries = (elemns) => {
   }
   for (let i = 1; i < elemns.length; i++) {
     arr = arr.concat(elemns[i].PricingOptions);
-    // console.log(arr, typeof (elemns[i]), elemns[i].PricingOptions);
   }
   return arr;
 }
