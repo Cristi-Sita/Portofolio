@@ -7,13 +7,17 @@ const querystring = require('querystring');
 
 const keySkyFlights = (inboundDate, cabinClass, children, infants, groupPricing, country, currency, lang,
     originPlace, destinationPlace, outboundDate, adults) => {
+
+    if (destinationPlace === 'error') return keySkyFlights = 'error';
+
     //Create POST method with all params to obtain SkyScanner key
+
     return axios({
         method: "POST",
         headers: {
             "content-type": "application/x-www-form-urlencoded",
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-            "x-rapidapi-key": "b9c7c90ac5msh1d13934c747c5a9p1f4f81jsn20ae86b5fd64"
+            "x-rapidapi-key": "your.key"
         },
         data: querystring.stringify({
             "inboundDate": inboundDate,
@@ -34,11 +38,12 @@ const keySkyFlights = (inboundDate, cabinClass, children, infants, groupPricing,
         .then((response) => {
             const skyKeyArray = response.headers.location.split("/");
             skyKey = skyKeyArray[skyKeyArray.length - 1];
-            // console.log(skyKey)
+            console.log(response.status, skyKey)
             return skyKey;
         })
         .catch((error) => {
-            console.log("Post was wrong", error)
+            console.log("Post was wrong", error.response.statusText, destinationPlace);
+            return skyKey = 'error';
         });
 };
 //Export module

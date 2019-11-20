@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
+    "now-start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,7 +14,7 @@
     "reservations",
     "flights search engine"
   ],
-  "author": "Cristi",
+  "author": "Cristi Sita",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",

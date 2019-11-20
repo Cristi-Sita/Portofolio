@@ -9,6 +9,8 @@ let flightsResponseData;
 
 const flightsResponse = (skyKey) => {
 
+    if (skyKey === 'error') return flightsResponseData = 'error';
+
     //Create GET method to obtain all SkyScanner data for flights search
 
     return axios({
@@ -17,7 +19,7 @@ const flightsResponse = (skyKey) => {
         "headers": {
             "content-type": "application/octet-stream",
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-            "x-rapidapi-key": "b9c7c90ac5msh1d13934c747c5a9p1f4f81jsn20ae86b5fd64"
+            "x-rapidapi-key": "your.key"            
         }, "params": {
             "sortType": "price",
             "sortOrder": "asc",
@@ -29,7 +31,7 @@ const flightsResponse = (skyKey) => {
             flightsResponseData = response.data;
             console.log(flightsResponseData.Status);
             return flightsResponseData;
-        })
+        })                                              //
         .then((response) => {                           //For complet data must repeat "GET" until Status is 
             if (response.Status != "UpdatesComplete") { //UpdatesComplete
                 return flightsResponse(skyKey);         //
@@ -39,7 +41,8 @@ const flightsResponse = (skyKey) => {
             return flightsResponseData;
         })
         .catch((error) => {
-            console.log("Pool was wrong.", error.Code)
+            console.log("Poll was wrong.", error.response);
+            return flightsResponseData = 'error';
         });
 };
 

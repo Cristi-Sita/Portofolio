@@ -3,7 +3,7 @@ let citySkyCode;
 // let zone = "RO",
 //     currency = "EUR",
 //     lang = "en-US",
-//     city = "Roma";
+//     city = "Rome";
 
 //
 //Find city code or airport used in SkyScanners API.
@@ -18,7 +18,7 @@ const findCitySkyCode = (zone, currency, lang, city) => {
         "headers": {
             "content-type": "application/octet-stream",
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-            "x-rapidapi-key": "b9c7c90ac5msh1d13934c747c5a9p1f4f81jsn20ae86b5fd64"
+            "x-rapidapi-key": "your.key"
         }, "params": {
             "query": city
         }
@@ -34,8 +34,10 @@ const findCitySkyCode = (zone, currency, lang, city) => {
         })
         .catch((error) => {
             console.log("Wrong city name.")
+            return citySkyCode = 'error'
         });
 };
 // findCitySkyCode(zone, currency, lang, city).then(() => console.log(citySkyCode));
+
 //Export module
 module.exports = findCitySkyCode;
