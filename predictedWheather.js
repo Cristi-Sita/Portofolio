@@ -24,5 +24,3 @@ const weatherForecast = (city) => {
         })
 };
 module.exports = weatherForecast;
-// weatherForecast("Cluj-Napoca,RO")
-//     .then(() => console.log(predictedWheather));
