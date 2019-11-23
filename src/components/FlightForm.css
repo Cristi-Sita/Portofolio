@@ -93,16 +93,17 @@ label {
 
 .myButton {
 	box-shadow: 3px 11px 15px -9px #276873;
-	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
-	background-color:#599bb3;
+	background:linear-gradient(to bottom, #59b3a0 5%, #75c9d8 100%);
+	background-color:#59b3a0;
 	border-radius:11px;
 	display:inline-block;
 	cursor:pointer;
 	/* color:#ffffff; */
 	font-family:Arial;
-	/* font-size:15px; */
+	font-size:17px;
 	font-weight:bold;
-	padding:13px 2px;
+    padding:13px 2px;
+    position: absolute;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #3d768a;
 }

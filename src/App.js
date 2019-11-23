@@ -165,8 +165,8 @@ class App extends Component {
             <div
               key={item.id}
               className="historyCard">
-              <h4 className="noMarginTop">{item.origin} to {item.destination}</h4>
-              <h5 className="noMarginTop">{item.outboundDate} return on: {item.inboundDate}</h5>
+              <h3 className="noMarginTop">{item.origin} to {item.destination}</h3>
+              <h4 className="noMarginTop">{item.outboundDate} return on: {item.inboundDate}</h4>
             </div>
           ))}
         </div>

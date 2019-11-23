@@ -1,10 +1,20 @@
 
 @media only screen and (max-width: 1024px) {
+.myButton {
+  font-size: 15px;
+}
+
   .flightCardGetPrice,
-  .flightFormContainer {
+  .flightFormContainer,
+  .forecastWheather {
     font-size: x-small;
   }
   
+  .pageTitle {
+    font-size: xx-large;
+    align-self: auto;
+  }
+
   .airplaneImage {
     display: none;
   }
@@ -12,7 +22,12 @@
   .airplaneImage::before {
 display: none;
   }
-@media only screen and (max-width: 736px) {
+
+  @media only screen and (max-width: 736px) {
+    .myButton {
+      position: relative;
+      left: calc(60vw - 30px);
+    }
     .historyOfSearch {
       display: none;
     }
@@ -37,6 +52,10 @@ display: none;
     }
     
     @media only screen and (max-width: 568px) {
+      .myButton {
+        left: 60vw;
+      }
+
       .forecastWheather {
         display: none;
       }
@@ -56,13 +75,9 @@ display: none;
           .appHeader {
             border-radius: 10px;
           }
-    
-        .pageTitle {
-          align-self: self-start;
-        }
-    
+     
         .mainContent {
-          background-image: linear-gradient(100deg, #22c1c3, #fdbb2d);
+          background-image: linear-gradient(100deg, #22c0c3c0, #2dfda6);
           border-radius: 10px;
         }
       }
