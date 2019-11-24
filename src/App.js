@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import moment from 'moment';
 import FlightForm from './components/FlightForm';
 import FlightCard from './components/FlightCard';
@@ -7,7 +7,7 @@ import './App.css';
 import './components/FlightForm.css'
 import './components/FlightCard.css'
 import './components/Loader.css'
-import "./components/Responsive.css"
+import './components/Responsive.css'
 import './components/img/baloon.jpeg'
 import './components/img/commercialAirplane.jpg'
 import './components/img/commercialAirplane1.jpg'
@@ -85,13 +85,13 @@ class App extends Component {
   }
 
   loadItems = () => {
-    return axios.get("https://flightsearchnodejs.cristisita.now.sh/items")
+    return axios.get('https://flightsearchnodejs.cristisita.now.sh/items')
       .then(response => {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
           i++;
           if (i === 12) {
-            return axios.delete("https://flightsearchnodejs.cristisita.now.sh/items/id")
+            return axios.delete('https://flightsearchnodejs.cristisita.now.sh/items/id')
               .then(response => {
                 i = 0;
                 console.log(response, "delete")
@@ -191,8 +191,8 @@ class App extends Component {
           <div className="sideImage wheatherImage"></div>
           <div>
             {this.state.wheatherorigin.map(day => (
-              typeof (day) === "undefined" ? <h1>Can't display wheather.
-               But doesn't matter because the weather is unpredictable.</h1> :
+              typeof (day) === "undefined" ? <h3>Can't display wheather.
+               But doesn't matter because the weather is unpredictable.</h3> :
                 <div
                   key={(day.dt * Math.random()).toString()}
                   className="wheathCard">
@@ -208,8 +208,8 @@ class App extends Component {
                 </div>
             ))}
             {this.state.wheatherdestination.map(day => (
-              typeof (day) === "undefined" ? <h1>Can't display wheather.
-              But doesn't matter because the weather is unpredictable.</h1> :
+              typeof (day) === "undefined" ? <h3>Can't display wheather.
+              But doesn't matter because the weather is unpredictable.</h3> :
                 <div
                   key={(day.dt * Math.random()).toString()}
                   className="wheathCard">

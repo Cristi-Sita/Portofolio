@@ -18,6 +18,7 @@ class FlightForm extends Component {
     };
 
     render() {
+        const winWidth = window.innerWidth;
 
         return (
             <div className="flightFormContainer">
@@ -27,7 +28,7 @@ class FlightForm extends Component {
                 >
                     <div className="formRow">
                         <div className="dropDown">
-                            <h3>Flying from: </h3>
+                            {winWidth > 480 ? <h3>Flying from: </h3> : <h3>From:</h3>}
                             <select
                                 className="dropDownSelect"
                                 name="originPlace"
@@ -42,7 +43,7 @@ class FlightForm extends Component {
                             </select>
                         </div>
                         <div className="textInput">
-                            <h3>Flying to: </h3>
+                            {winWidth > 480 ? <h3>flying to: </h3> : <h3>to:</h3>}
                             <input
                                 className="inputText"
                                 type="text"
@@ -55,7 +56,7 @@ class FlightForm extends Component {
                         </div>
                     </div>
                     <div className="formRow ">
-                        <h3>Departure date</h3>
+                        {winWidth > 480 ? <h3>Departure date: </h3> : <h4>Departure:</h4>}
                         <input
                             className='textInput dateBox'
                             type='date'
@@ -64,7 +65,7 @@ class FlightForm extends Component {
                             value={this.props.outboundDate}
                             onChange={this.props.handleChange}
                         />
-                        <h3>Return date</h3>
+                        {winWidth > 480 ? <h3>return date: </h3> : <h4>return:</h4>}
                         <input
                             className='textInput dateBox'
                             type='date'
@@ -76,7 +77,7 @@ class FlightForm extends Component {
                     </div>
                     <div className="formRow lastRow">
                         <div className="dropDown">
-                            <h3>Cabin Class</h3>
+                            {winWidth > 480 ? <h3>Cabin Class: </h3> : <h4>Class:</h4>}
                             <select
                                 className="dropDownSelect"
                                 type="text"
@@ -90,7 +91,7 @@ class FlightForm extends Component {
                             </select>
                         </div>
                         <div className="dropDown">
-                            <h3>Passenger Count</h3>
+                            {winWidth > 480 ? <h3>Passenger Count: </h3> : <h4>Passenger:</h4>}
                             <select
                                 className="dropDownSelect"
                                 type="text"

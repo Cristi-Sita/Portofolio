@@ -25,6 +25,7 @@ display: none;
   }
 
   @media only screen and (max-width: 768px) {
+
     .myButton {
       position: relative;
       left: calc(60vw - 30px);
@@ -52,7 +53,16 @@ display: none;
       max-width: 33%;
     }
     
-    @media only screen and (max-width: 640px) {
+    @media only screen and (max-width: 680px) {
+      .flightCardGetPrice {
+        font-size: 60%;
+      }
+  
+
+      .formRow {
+        justify-content: space-between;
+      }
+  
       .myButton {
         left: 60vw;
       }
@@ -69,7 +79,8 @@ display: none;
         display: none;
       }
 
-      .mainContainer {
+      .mainContainer,
+      .pageTitle {
           font-size: 63%;
           }
         
