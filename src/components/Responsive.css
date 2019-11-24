@@ -6,6 +6,7 @@
 
   .flightCardGetPrice,
   .flightFormContainer,
+  .historyOfSearch,
   .forecastWheather {
     font-size: x-small;
   }
@@ -23,7 +24,7 @@
 display: none;
   }
 
-  @media only screen and (max-width: 736px) {
+  @media only screen and (max-width: 768px) {
     .myButton {
       position: relative;
       left: calc(60vw - 30px);
@@ -46,12 +47,12 @@ display: none;
     .flightCardGetPrice {
       font-size: 70%;
     }
-    
+  
     .forecastWheather {
       max-width: 33%;
     }
     
-    @media only screen and (max-width: 568px) {
+    @media only screen and (max-width: 640px) {
       .myButton {
         left: 60vw;
       }
@@ -67,9 +68,9 @@ display: none;
       .centralImage {
         display: none;
       }
-      /* @media only screen and (max-width: 446px) { */
-        .mainContainer {
-          font-size: 75%;
+
+      .mainContainer {
+          font-size: 63%;
           }
         
           .appHeader {

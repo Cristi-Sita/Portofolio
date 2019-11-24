@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from 'moment';
 
 class FlightCard extends Component {
 
@@ -61,11 +62,11 @@ class FlightCard extends Component {
                         <div className="flightCardGetPrice">
                             <div className='flightCardDateContainer'>
                                 <h2 className="flightCardDateH noMarginTopTag">
-                                    <span className="flightCardDate">Departure date: </span>
-                                    {this.props.flightsParams.outboundDate}
+                                    <span className="flightCardDate">Departure: </span>
+                                    {formatDayFl(this.props.flightsParams.outboundDate)}
                                     <br />
-                                    <span className="flightCardDate">return date: </span>
-                                    {this.props.flightsParams.inboundDate}
+                                    <span className="flightCardDate">return: </span>
+                                    {formatDayFl(this.props.flightsParams.inboundDate)}
                                 </h2>
                             </div>
                             <div className="priceContainer">
@@ -84,6 +85,10 @@ class FlightCard extends Component {
             </div>
         );
     };
+};
+
+const formatDayFl = (day) => {
+    return moment(day).format("dddd L")
 };
 
 export default FlightCard;

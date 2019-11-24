@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import moment from 'moment';
 import FlightForm from './components/FlightForm';
 import FlightCard from './components/FlightCard';
 import './App.css';
@@ -141,6 +142,7 @@ class App extends Component {
   }
 
   render() {
+
     return <div className="mainContainer" >
       <img className="bkgImage"
         src={require(`./components/img/${slide[
@@ -166,7 +168,7 @@ class App extends Component {
               key={item.id}
               className="historyCard">
               <h3 className="noMarginTop">{item.origin} to {item.destination}</h3>
-              <h4 className="noMarginTop">{item.outboundDate} return on: {item.inboundDate}</h4>
+              <h4 className="noMarginTop">{formatDay(item.outboundDate)} return: {formatDay(item.inboundDate)}</h4>
             </div>
           ))}
         </div>
@@ -199,7 +201,7 @@ class App extends Component {
                     key={(city.id * Math.random()).toString()}>{city.origin}</h2>))}
                   {this.state.cities.map(city => (<h4
                     key={this.state.cities[0].id}
-                    className="noMarginTop">{city.outboundDate}</h4>))}
+                    className="noMarginTop">{formatDay(city.outboundDate)}</h4>))}
                   <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
                   <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
                   <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
@@ -216,7 +218,7 @@ class App extends Component {
                     key={(city.id * Math.random()).toString()}>{city.destination}</h2>))}
                   {this.state.cities.map(city => (<h4
                     key={this.state.cities[0].id.toString()}
-                    className="noMarginTop">{city.outboundDate}</h4>))}
+                    className="noMarginTop">{formatDay(city.outboundDate)}</h4>))}
                   <h4 className="noMarginTop">Temp max: {Math.round(day.temp.max)} &#8451;</h4>
                   <h4 className="noMarginTop">Temp min: {Math.round(day.temp.min)} &#8451;</h4>
                   <h4 className="noMarginTop capitalizes">{day.weather[0].description}</h4>
@@ -265,6 +267,10 @@ const concatItineraries = (elemns) => {
     arr = arr.concat(elemns[i].PricingOptions);
   }
   return arr;
+}
+
+const formatDay = (day) => {
+  return moment(day).format("ll")
 }
 
 export default App;
