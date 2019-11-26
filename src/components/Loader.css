@@ -15,7 +15,7 @@
 }
 
 .loadingTextPlus {
-    top: calc(90vh/2 + 100px);
+    top: calc(90vh/2 + 120px);
     left: calc(90vw/2 + 10px);
 }
 

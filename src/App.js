@@ -57,6 +57,7 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    this.setState({ loading: true });
     const { originPlace,
       destinationPlace,
       inboundDate,
@@ -79,7 +80,6 @@ class App extends Component {
       cabinClass
     })
       .then(response => {
-        this.setState({ loading: true })
         // console.log(response)
         setTimeout(() => this.loadItems(), 14000)
       })
@@ -98,9 +98,9 @@ class App extends Component {
               .then(response => {
                 i = 0;
                 console.log(response, "delete")
-                setTimeout(() => this.loadItems(), 2000)
+                alert('Something is wrong! Check if the destination is correct, if so, try again later!')
+                setTimeout(() => this.loadItems(), 1000)
               })
-              .then(() => alert('Something is wrong! Check if the destination is correct, if so, try again later!'))
           }
           return setTimeout(() => this.loadItems(), 4000)
         }
