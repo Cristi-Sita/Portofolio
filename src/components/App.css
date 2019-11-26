@@ -129,7 +129,7 @@ img {
 }
 
 .airplaneImage::before {
-  background-image: url("./components/img/commercialAirplane.jpg");
+  background-image: url("./img/commercialAirplane.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -160,7 +160,7 @@ img {
 }
 
 .wheatherImage {
-  background-image: url("./components/img/Wheather.jpg");
+  background-image: url("./img/Wheather.jpg");
   background-position: center center;
   width: 100%;
   height: 25%;

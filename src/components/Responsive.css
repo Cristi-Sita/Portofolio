@@ -79,11 +79,14 @@ display: none;
         display: none;
       }
 
-      .mainContainer,
-      .pageTitle {
-          font-size: 63%;
+      .mainContainer {
+          font-size: 60%;
           }
-        
+      
+          .pageTitle {
+            font-size: 1.5em;
+          }
+
           .appHeader {
             border-radius: 10px;
           }
@@ -92,6 +95,11 @@ display: none;
           background-image: linear-gradient(100deg, #22c0c3c0, #2dfda6);
           border-radius: 10px;
         }
+
+        .anchorBtn {
+          font-size: 15px;
+        }
+
       }
     }
   }

@@ -3,18 +3,19 @@ import axios from 'axios';
 import moment from 'moment';
 import FlightForm from './components/FlightForm';
 import FlightCard from './components/FlightCard';
-import './App.css';
-import './components/FlightForm.css'
-import './components/FlightCard.css'
-import './components/Loader.css'
-import './components/Responsive.css'
-import './components/img/baloon.jpeg'
-import './components/img/commercialAirplane.jpg'
-import './components/img/commercialAirplane1.jpg'
-import './components/img/commercialAirplane2.jpg'
+import './components/App.css';
+import './components/FlightForm.css';
+import './components/FlightCard.css';
+import './components/Loader.css';
+import './components/Responsive.css';
+import './components/img/baloon.jpeg';
+import './components/img/commercialAirplane.jpg';
+import './components/img/commercialAirplane1.jpg';
+import './components/img/commercialAirplane2.jpg';
 
 const slide = ['commercialAirplane1.jpg', 'baloon.jpeg', 'commercialAirplane.jpg', 'commercialAirplane2.jpg'];
 let i = 0;
+// now = new Date();
 
 class App extends Component {
   constructor(props) {
@@ -42,7 +43,8 @@ class App extends Component {
       currency: "EUR",
       locale: "en-US",
       slide: slide,
-      loading: false
+      loading: false,
+      loadingPlus: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -79,7 +81,7 @@ class App extends Component {
       .then(response => {
         this.setState({ loading: true })
         // console.log(response)
-        setTimeout(() => this.loadItems(), 12000)
+        setTimeout(() => this.loadItems(), 14000)
       })
       .catch(error => console.log(error));
   }
@@ -89,6 +91,7 @@ class App extends Component {
       .then(response => {
         if (response.data[0].wheatherorigin === null || typeof (response.data[0].wheatherorigin) === 'undefined') {
           console.log(response);
+          this.setState({ loadingPlus: true })
           i++;
           if (i === 12) {
             return axios.delete('https://flightsearchnodejs.cristisita.now.sh/items/id')
@@ -99,11 +102,12 @@ class App extends Component {
               })
               .then(() => alert('Something is wrong! Check if the destination is correct, if so, try again later!'))
           }
-          return setTimeout(() => this.loadItems(), 3000)
+          return setTimeout(() => this.loadItems(), 4000)
         }
-        this.setState({ loading: false })
+        this.setState({ loading: false });
+        this.setState({ loadingPlus: false });
         this.setState({ items: response.data });
-        this.setState({ cities: sliceArr(response.data) })
+        this.setState({ cities: sliceArr(response.data) });
         this.setState({
           wheatherorigin: [wheath(response.data[0].outboundDate,
             JSON.parse(response.data[0].wheatherorigin).wheathOrigin.list)]
@@ -144,11 +148,7 @@ class App extends Component {
   render() {
 
     return <div className="mainContainer" >
-      <img className="bkgImage"
-        src={require(`./components/img/${slide[
-          Math.floor(slide.length * Math.random())
-        ]}`)}
-        alt="flying objects" />
+      {changeBkg(this.state)}
       <header className="appHeader">
         <h1 className="pageTitle">Flights search engine</h1>
         <p className="powered">Powered by Skyscanner</p>
@@ -180,6 +180,7 @@ class App extends Component {
             <div id="loaderAnimation">
             </div>
             <h3 className="loadingText">Searching...</h3>
+            {loadingTextPlus(this.state)}
           </div> :
             <FlightCard price={this.state.price}
               itineraries={this.state.itineraries}
@@ -271,6 +272,27 @@ const concatItineraries = (elemns) => {
 
 const formatDay = (day) => {
   return moment(day).format("ll")
+}
+
+const loadingTextPlus = (prop) => {
+  if (prop.loadingPlus === true) return <h3 className="loadingTextPlus">...almost there</h3>
+}
+
+const changeBkg = (prop) => {
+  return prop.loading === true ? <img className="bkgImage"
+    src={require(`./components/img/${slide[
+      Math.floor(slide.length * Math.random())
+    ]}`
+    )}
+    alt="flying objects"
+    style={{ opacity: 0.7 }} />
+    : <img className="bkgImage"
+      src={require(`./components/img/${slide[
+        Math.floor(slide.length * Math.random())
+      ]}`
+      )}
+      alt="flying objects"
+      style={{ opacity: 0.2 }} />
 }
 
 export default App;

@@ -5,7 +5,7 @@ class FlightForm extends Component {
         super(props);
 
         this.state = {
-            originPlace: "Cluj Napoca",
+            originPlace: "",
             destinationPlace: "",
             inboundDate: new Date().toLocaleDateString(),
             outboundDate: new Date().toLocaleDateString(),

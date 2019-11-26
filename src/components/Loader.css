@@ -6,11 +6,17 @@
     z-index: 1000;
 }
 
-.loadingText {
+.loadingText,
+.loadingTextPlus {
     position: absolute;
     top: calc(90vh/2 + 50px);
     left: calc(90vw/2 + 15px);
     margin: auto;
+}
+
+.loadingTextPlus {
+    top: calc(90vh/2 + 100px);
+    left: calc(90vw/2 + 10px);
 }
 
 #loaderAnimation {
