@@ -33,7 +33,7 @@ h2, .arrow {
   
   .flightCardGetPrice {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     font-size: 80%;
   }
   
